@@ -1,14 +1,18 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Header from './components/Header/Header'
+import HomePage from './pages/HomePage/HomePage'
 
 function App() {
 
   return (
     <>
-      <section id="center">
-        <div>
-          <h1>Get started</h1>
-        </div>
-      </section>
+      <main>
+        <Header/>
+        <Routes>
+          <Route path='/' element={ <HomePage/> } />
+        </Routes>
+      </main>
     </>
   )
 }
