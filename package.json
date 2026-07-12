@@ -2,7 +2,7 @@
   "name": "railway-ticket-booking-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://VishnyakAlena.github.io/realway-ticket-booking-app",
+  "homepage": "https://github.com/VishnyakAlena/Railway-ticket-booking-app",
   "type": "module",
   "scripts": {
     "dev": "vite",

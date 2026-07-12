@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
-  base: '/Railway-ticket-booking-app/'
+  base: '/Railway-ticket-booking-app/',
 })
