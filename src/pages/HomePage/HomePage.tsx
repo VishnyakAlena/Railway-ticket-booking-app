@@ -1,3 +1,4 @@
+import CityInput from "../../components/HomePage/CityInput"
 import PassengerCounter from "../../components/HomePage/PassengerCounter"
 
 function HomePage() {
@@ -7,6 +8,8 @@ function HomePage() {
             <h1>Let's Find That Ticket</h1>
             <p>Before Someone Else Does</p>
             <PassengerCounter/>
+            <CityInput title="Departure" isActive={true}/>
+            <CityInput title="Arrival" isActive={false}/>
         </div>
     )
 }
