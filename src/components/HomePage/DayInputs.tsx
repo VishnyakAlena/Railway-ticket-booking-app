@@ -14,7 +14,6 @@ function DayInputs({
     arrivalDay,
     setArrivalDay
 }:props) {
-    const day = '14.10.26'
     const [isOpen, setIsOpen] = useState(false)
 
     function openCalendar() {

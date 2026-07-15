@@ -1,4 +1,3 @@
-import DateRangeCalendar from "../../components/HomePage/DateRangeCalendar"
 import CityInput from "../../components/HomePage/CityInput"
 import PassengerCounter from "../../components/HomePage/PassengerCounter"
 import DayInputs from "../../components/HomePage/DayInputs"
