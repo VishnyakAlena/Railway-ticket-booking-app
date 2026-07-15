@@ -1,5 +1,6 @@
 import { useState } from "react"
 import DateRangeCalendar from "./DateRangeCalendar"
+import calendarIcon from '../../assets/icons/Calendar.svg'
 
 type props = {
     departureDay: Date | null;
@@ -26,14 +27,14 @@ function DayInputs({
             <div className="day-inputs" style={{display:"flex", justifyContent: 'space-between'}}>
                 <div className="day-inputs__input">
                     <div onClick={openCalendar}>
-                        <img />
+                        <img src={calendarIcon} alt="Calendar" />
                         <p>Depart</p>
                     </div>
                     <p>{departureDay ? new Date(departureDay).toLocaleDateString() : ''}</p>
                 </div>
                 <div className="day-inputs__input">
                     <div onClick={openCalendar}>
-                        <img />
+                        <img src={calendarIcon} alt="Calendar" />
                         <p>Return</p>
                     </div>
                     <p>{arrivalDay ? new Date(arrivalDay).toLocaleDateString() : ''}</p>

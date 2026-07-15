@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import arrowLeft from '../../assets/icons/Arrow-left.svg'
 import arrowRight from '../../assets/icons/Arrow-right.svg'
-import calendarIcon from '../../assets/icons/Calendar.svg' // Переименовано, чтобы не путать с логикой
+import calendarIcon from '../../assets/icons/Calendar.svg'
 
 type props = {
     departureDay: Date | null;
