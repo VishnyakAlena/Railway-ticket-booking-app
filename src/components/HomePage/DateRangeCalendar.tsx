@@ -2,7 +2,13 @@ import { useState } from 'react'
 import arrowLeft from '../../assets/icons/Arrow-left.svg'
 import arrowRight from '../../assets/icons/Arrow-right.svg'
 import calendarIcon from '../../assets/icons/Calendar.svg' // Переименовано, чтобы не путать с логикой
-import './style.css'
+
+type props = {
+    departureDay: Date | null;
+    setDepartureDay: React.Dispatch<React.SetStateAction<Date | null>>;
+    arrivalDay: Date | null;
+    setArrivalDay: React.Dispatch<React.SetStateAction<Date | null>>;
+}
 
 const MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June", 
@@ -11,11 +17,14 @@ const MONTH_NAMES = [
 
 const WEEK_NAMES = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
-function DateRangeCalendar() {
+function DateRangeCalendar({
+    departureDay: startDate,
+    setDepartureDay: setStartDate,
+    arrivalDay: endDate,
+    setArrivalDay: setEndDate
+}:props) {
     // Текущая дата определяет левый (первый) месяц. Правый месяц всегда будет +1.
     const [currentMonthDate, setCurrentMonthDate] = useState(new Date());
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
 
     // Вычисляем объект даты для правого (следующего) месяца
     const nextMonthDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth() + 1, 1);

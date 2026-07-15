@@ -1,15 +1,22 @@
-import { useState } from "react"
+import { TripAlias } from "../../constants";
 
 const MAX_PASSENGERS = 99
-const TripAlias = {
-    ONE_WAY: 0,
-    ROUND_TRIP: 1
+
+
+type props = {
+    passengers: number;
+    setPassengers: React.Dispatch<React.SetStateAction<number>>;
+    trip: number;
+    setTrip: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function PassengerCounter() {
-    const [passengers, setPassengers] = useState(1)
-    const [trip, setTrip] = useState(TripAlias.ROUND_TRIP)
-    
+function PassengerCounter({
+    passengers,
+    setPassengers,
+    trip,
+    setTrip
+}: props) {
+        
     function minusPassenger() {
         if(passengers <= 1) return
 
@@ -23,7 +30,7 @@ function PassengerCounter() {
     }
 
     return (
-        <div>
+        <div style={{display:"flex", justifyContent: 'space-between', alignItems: 'center'}}>
             <input 
                 type="radio" 
                 name="trip" 
