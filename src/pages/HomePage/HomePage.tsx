@@ -4,8 +4,13 @@ import DayInputs from "../../components/HomePage/DayInputs"
 import { useState } from "react"
 import { TripAlias } from "../../constants"
 import type { CityType } from "../../types"
+import { useAppDispatch } from "../../store/storeHooks"
+import { setTickets } from "../../store/slices/ticketSlice"
+import { useNavigate } from "react-router-dom"
 
 function HomePage() {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const [passengers, setPassengers] = useState(1)
     const [trip, setTrip] = useState(TripAlias.ROUND_TRIP)
@@ -19,10 +24,12 @@ function HomePage() {
             passengers,
             departureCity,
             arrivalCity,
-            departureDay,
-            arrivalDay
+            departureDay: departureDay?.toLocaleDateString() || '',
+            arrivalDay: arrivalDay?.toLocaleDateString() || ''
         }
-        console.log(tickets)
+        dispatch(setTickets(tickets))
+
+        navigate('/search-results')
     }
 
     return (
