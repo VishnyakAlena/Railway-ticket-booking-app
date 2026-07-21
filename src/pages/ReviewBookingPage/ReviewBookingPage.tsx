@@ -1,10 +1,8 @@
 import { useEffect } from "react"
 import { useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
-import { Trains } from "../../constants"
-import Train from "../../components/Train/Train"
 
-function SearchResultsPage(){
+function ReviewBookingPage(){
     const navigate = useNavigate()
     const {tickets} = useAppSelector(store => store.tickets)
 
@@ -14,18 +12,16 @@ function SearchResultsPage(){
 
 useEffect(() => {
     console.log(tickets);
-
     if(!tickets) navigate('/')
-
 }, [])
 
     return (
         <div>
-            <h2>Search Results</h2>
-            {Trains.map(train => <Train train={train}/>)}
+            <h2>Review your booking</h2>
+            
             <button onClick={goToReview} disabled={!tickets?.train}>Tickets Please!</button>
         </div>
     )
 }
 
-export default SearchResultsPage
+export default ReviewBookingPage
