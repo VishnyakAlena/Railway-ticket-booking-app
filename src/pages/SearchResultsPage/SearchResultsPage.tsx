@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
 import { Trains } from "../../constants"
-import Train from "../../components/Train/Train"
+import Train from "../../components/SearchResultsPage/Train"
 
 function SearchResultsPage(){
     const navigate = useNavigate()
