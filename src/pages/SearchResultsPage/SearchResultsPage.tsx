@@ -22,7 +22,7 @@ useEffect(() => {
     return (
         <div>
             <h2>Search Results</h2>
-            {Trains.map(train => <Train train={train}/>)}
+            {Trains.map(train => <Train key={train.id} train={train}/>)}
             <button onClick={goToReview} disabled={!tickets?.train}>Tickets Please!</button>
         </div>
     )

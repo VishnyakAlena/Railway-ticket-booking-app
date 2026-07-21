@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { TicketType } from "../../types";
+import type { PriceType, TicketType } from "../../types";
+import { PromoCodes } from "../../constants";
 
 interface ITicketState {
     tickets: TicketType | null,
-    price: number,
-    totalPrice: number
+    price: PriceType
 }
 
 export interface IPayload {
@@ -15,8 +15,13 @@ export interface IPayload {
 
 const initialState:ITicketState = {
     tickets: null,
-    price: 0,
-    totalPrice: 0
+    price: {
+        tickets: 0,
+        food: 0,
+        baggage: 0, 
+        discount: 0,
+        total: 0
+    }
 }
 
 const ticketSlice = createSlice({
@@ -31,6 +36,39 @@ const ticketSlice = createSlice({
                 ...state.tickets,
                 [action.payload.key] : action.payload.value
             }
+
+            const ticketsPrice = (newTickets.passengers || 0) * (newTickets.train?.railcar.price || 0)
+            const foodPrice = newTickets.food?.reduce((acc, food) => {
+                return acc += food.counter * food.price
+            }, 0) || 0
+
+            let newPrice: PriceType = {
+                tickets: ticketsPrice,
+                food: foodPrice,
+                baggage: newTickets.extraBaggage ? 500 : 0,
+            }
+            
+            const total = Object.values(newPrice).reduce((acc, value) => {
+                return acc += value
+            }, 0)
+        
+            let sale = 0
+            if (newTickets.promoCode) {
+                sale = PromoCodes[(newTickets.promoCode as keyof typeof PromoCodes)] || 0
+            }
+            console.log('sale', sale);
+
+            const discountPrice = (sale / 100) * total
+
+            console.log('discountPrice', discountPrice);
+
+            newPrice = {
+                ...newPrice,
+                discount: discountPrice,
+                total: total - discountPrice
+            }
+
+            state.price = newPrice
             state.tickets = newTickets as TicketType
         }
     }

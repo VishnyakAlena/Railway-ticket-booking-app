@@ -62,5 +62,13 @@ export type TicketType = {
     passengerData?: PassengerType[],
     food?: FoodType[],
     extraBaggage?: boolean,
-    promoCode?: number
+    promoCode?: string
+}
+
+export type PriceType = {
+    tickets: number,
+    food: number,
+    baggage: number, 
+    discount?: number,
+    total?: number
 }

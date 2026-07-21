@@ -1,5 +1,10 @@
 import type { TrainType } from "../types"
 
+export const PromoCodes = {
+    BOOKNOW: 50,
+    FIRSTTIME: 20
+}
+
 export const TripAlias = {
     ONE_WAY: 0,
     ROUND_TRIP: 1
