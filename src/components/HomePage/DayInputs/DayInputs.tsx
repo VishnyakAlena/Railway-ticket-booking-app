@@ -1,6 +1,7 @@
 import { useState } from "react"
-import DateRangeCalendar from "./DateRangeCalendar"
-import calendarIcon from '../../assets/icons/Calendar.svg'
+import DateRangeCalendar from "../DateRangeCalendar/DateRangeCalendar"
+import calendarIcon from '../../../assets/icons/Calendar.svg'
+import './style.css'
 
 type props = {
     departureDay: Date | null;

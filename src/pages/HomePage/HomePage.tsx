@@ -1,12 +1,13 @@
-import CityInput from "../../components/HomePage/CityInput"
-import PassengerCounter from "../../components/HomePage/PassengerCounter"
-import DayInputs from "../../components/HomePage/DayInputs"
+import CityInput from "../../components/HomePage/CityInput/CityInput"
+import PassengerCounter from "../../components/HomePage/PassengerCounter/PassengerCounter"
+import DayInputs from "../../components/HomePage/DayInputs/DayInputs"
 import { useState } from "react"
 import { TripAlias } from "../../constants"
 import type { CityType } from "../../types"
 import { useAppDispatch } from "../../store/storeHooks"
 import { setTickets } from "../../store/slices/ticketSlice"
 import { useNavigate } from "react-router-dom"
+import './style.css'
 
 function HomePage() {
     const dispatch = useAppDispatch()
@@ -33,9 +34,9 @@ function HomePage() {
     }
 
     return (
-        <div>
+        <div className="home-page">
             <h1>Let's Find That Ticket</h1>
-            <p>Before Someone Else Does</p>
+            <p className="white-text main-paragraph">before someone else does</p>
             <PassengerCounter
                 passengers={passengers}
                 setPassengers={setPassengers}
@@ -48,12 +49,14 @@ function HomePage() {
                     isActive={true}
                     city={departureCity}
                     setCity={setDepartureCity}
+                    isHome={true}
                 />
                 <CityInput 
                     title="Arrival" 
                     isActive={trip === TripAlias.ROUND_TRIP}
                     city={arrivalCity}
                     setCity={setArrivalCity}
+                    isHome={true}
                 />
             </div>
             <DayInputs 

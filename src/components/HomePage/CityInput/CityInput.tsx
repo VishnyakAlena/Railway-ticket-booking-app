@@ -1,19 +1,22 @@
 import { useState } from "react"
-import { indianRailwayStations } from "../../constants/cities"
-import type { CityType } from "../../types"
+import { indianRailwayStations } from "../../../constants/cities"
+import type { CityType } from "../../../types"
+import './style.css'
 
 type props = {
     title: string
     isActive: boolean
     city:CityType
     setCity: React.Dispatch<React.SetStateAction<CityType>>
+    isHome: boolean
 }
 
 function CityInput({
     title, 
     isActive,
     city,
-    setCity
+    setCity,
+    isHome
 }:props) {
     
     const [findCities, setFindCities] = useState<CityType[]>([])
@@ -39,7 +42,7 @@ function CityInput({
 
     return (
         <div>
-            <label htmlFor={title}>{title}</label>
+            <label className={`form-label ${isHome ? 'white-text' : 'black-text'}`} htmlFor={title}>{title}</label>
             <input 
                 type="text"  
                 id={title} 

@@ -1,4 +1,5 @@
-import { TripAlias } from "../../constants";
+import { TripAlias } from "../../../constants";
+import './style.css'
 
 const MAX_PASSENGERS = 99
 
@@ -30,7 +31,7 @@ function PassengerCounter({
     }
 
     return (
-        <div style={{display:"flex", justifyContent: 'space-between', alignItems: 'center'}}>
+        <div className="passenger-counter">
             <input 
                 type="radio" 
                 name="trip" 
@@ -47,7 +48,7 @@ function PassengerCounter({
             />
             <label htmlFor="one-way">One way</label>
 
-            <div>
+            <div className="counter">
                 <button onClick={minusPassenger}>-</button>
                 <p>{passengers}</p>
                 <button onClick={plusPassenger}>+</button>

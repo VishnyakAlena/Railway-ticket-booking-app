@@ -1,0 +1,42 @@
+.nav-link {
+    text-decoration: none;
+    font-weight: 400;
+    line-height: 135%;
+    text-align: center;
+}
+
+.nav-link:hover {
+    transform: scale(1.05)
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 64px;
+    width: 100%;
+    height: 115px;
+}
+
+.logo-block {
+    max-width: 50%;
+    justify-content: left;
+    display: flex;
+    gap: 15px;
+    font-size: 2.125rem;
+}
+
+.navigation-block {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+}
+
+.white-text {
+    color: var(--white)
+}
+
+.black-text {
+    color: var(--primary-black-train)
+}
