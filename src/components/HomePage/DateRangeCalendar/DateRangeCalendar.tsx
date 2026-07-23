@@ -163,6 +163,29 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, props>(({
     );
     };
 
+    const applyTooltipText = () => {
+        if (!startDate && !endDate) {
+                return "Please fill in the departure and arrival dates";
+            } 
+                else if (!startDate) {
+                    return "Please select a departure date";
+                }
+                    else if (isArrivalDayActive && !endDate) {
+                        return "Please select an arrival date";
+                    }
+        
+            return "";
+    }
+
+        const resetTooltipText = () => {
+            if (!startDate && !endDate) {
+                return "No dates have been selected";
+            } 
+            return "";
+    }
+
+
+
     // Главный рендер компонента (двухстраничный календарь)
     return (
         <div ref={ref} className="month-calendar-container">
@@ -197,9 +220,13 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, props>(({
     <div style={{ flex: 1 }}></div> 
     
     {/* Кнопки внутри пространства второго месяца */}
-    <div className='calendar-buttons' style={{ flex: 1, display: 'flex', gap: '10px'}}>
-        <button className="reset-calendar-button" onClick={onReset} disabled={!startDate}>Reset</button>
-        <button className="apply-calendar-button" onClick={onApply} disabled={isApplyDisabled}>Apply</button>
+    <div className='calendar-buttons'>
+        <div className="tooltip-wrapper reset-tooltip-wrapper" data-tooltip={resetTooltipText()}>
+            <button className="reset-calendar-button" onClick={onReset} disabled={!startDate}>Reset</button>
+        </div>
+        <div className="tooltip-wrapper apply-tooltip-wrapper" data-tooltip={applyTooltipText()}>
+            <button className="apply-calendar-button" onClick={onApply} disabled={isApplyDisabled}>Apply</button>
+        </div>
     </div>
 </div>
     </div>

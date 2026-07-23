@@ -53,7 +53,7 @@ function DayInputs({
     };
 }, [isOpen, isAnimatingOut]);
     
-    const isApplyDisabled = isArrivalDayActive ? !arrivalDay && !departureDay: !departureDay 
+    const isApplyDisabled = isArrivalDayActive ? !arrivalDay || !departureDay: !departureDay 
 
     return (
         <div className="days-container">
@@ -99,7 +99,8 @@ function DayInputs({
                 onApply={closeCalendarWithAnimation} 
                 onReset={() => {
                     setDepartureDay(null); 
-                    setArrivalDay(null);       
+                    setArrivalDay(null); 
+                    {closeCalendarWithAnimation}    
     }}
             />}
         </div>

@@ -26,3 +26,50 @@
     font-size: 16px;
     line-height: 150%;
 }
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Стилизация самой подсказки */
+.tooltip-wrapper::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 0.725rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    pointer-events: none; /* Чтобы подсказка не мешала мыши */
+}
+
+/* Показ подсказки при наведении на контейнер */
+.tooltip-wrapper:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ticket-tooltip-wrapper {
+    width: 100%;
+}
+
+.ticket-tooltip-wrapper::after {
+    top: 100%;
+    left: 50%;
+    margin-top: 8px;
+    color: var(--white);
+    white-space: nowrap;
+}
+
+.apply-tooltip-wrapper::after, .reset-tooltip-wrapper::after {
+    bottom: 100%;
+    left: 20px;
+    color: var(----primary-black-train);
+    white-space: normal;
+    width: 160px;
+    padding: 0;
+    margin-bottom: 1px;
+}
