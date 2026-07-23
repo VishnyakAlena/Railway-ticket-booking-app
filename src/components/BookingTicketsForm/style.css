@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 24px;
-    margin-top: 60px;
+    margin: 60px 0;
     margin-inline: auto;
     align-items: center;
 }

@@ -52,7 +52,7 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
             if (tickets.arrivalCity) setArrivalCity(tickets.arrivalCity);
             if (tickets.passengers) setPassengers(tickets.passengers);
         }
-    }, [tickets]); 
+    }, []); 
 
     function getTickets() {
         const ticketsData = {
@@ -70,8 +70,8 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
     }
     }
 
-    const isTicketDisabled = !arrivalCity.name || 
-                            !departureCity.name || 
+    const isTicketDisabled = !arrivalCity?.name?.trim() || 
+                            !departureCity?.name?.trim() || 
                             departureCity.name.toLowerCase() === arrivalCity.name.toLowerCase() ||
                             (trip === TripAlias.ROUND_TRIP ? (!departureDay || !arrivalDay) : !departureDay)
 
@@ -131,7 +131,7 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
                 isHome={isHome}
                 isArrivalDayActive={trip === TripAlias.ROUND_TRIP}
             />
-            <div className="tooltip-wrapper ticket-tooltip-wrapper" data-tooltip={ticketTooltipText()}>
+            <div className={`tooltip-wrapper ticket-tooltip-wrapper ${isHome ? 'white-text' : 'black-text'}`} data-tooltip={ticketTooltipText()}>
                 <button className="main-button" onClick={getTickets} disabled={isTicketDisabled}>Ticket, Please!</button>
             </div>
         </div>

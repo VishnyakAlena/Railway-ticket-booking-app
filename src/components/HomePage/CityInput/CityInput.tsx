@@ -17,12 +17,12 @@ function CityInput({
     isHome
 }:props) {
     
-    const [inputValue, setInputValue] = useState(city.name || '');
+    const [inputValue, setInputValue] = useState(city?.name || '');
     const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
-        setInputValue(city.name || '');
-    }, [city.name]);
+        setInputValue(city?.name || '');
+    }, [city]);
 
     // ДИНАМИЧЕСКАЯ ФИЛЬТРАЦИЯ: вычисляем список городов на лету
     const filteredCities = indianRailwayStations.filter(station => {
@@ -49,6 +49,7 @@ function CityInput({
 
     const handleClear = () => {
         setInputValue('');
+        setCity({ name: '', code: '' });
     };
 
     return (
