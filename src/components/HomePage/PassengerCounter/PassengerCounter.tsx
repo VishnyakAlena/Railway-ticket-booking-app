@@ -56,6 +56,7 @@ function PassengerCounter({
                         name="trip" 
                         id='one-way' 
                         onChange={() => setTrip(TripAlias.ONE_WAY)} 
+                        checked={trip === TripAlias.ONE_WAY}
                     />
                     <span className="custom-radio"></span>
                     One way

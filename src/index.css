@@ -47,6 +47,10 @@
   color: var(--primary-black-train)
 }
 
+body {
+  background-color: #F5F5F5;
+}
+
 body.home-page-active {
   background-image: url('./assets/images/india-tibet-himalayas-from-space.jpg');
   background-size: cover;
@@ -86,4 +90,5 @@ button:disabled {
     opacity: 0.6;              
     cursor: not-allowed;       
 }
+
 

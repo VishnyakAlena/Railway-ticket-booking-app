@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../store/storeHooks";
+import { useAppDispatch, useAppSelector } from "../../store/storeHooks";
 import PassengerCounter from "../HomePage/PassengerCounter/PassengerCounter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TripAlias } from "../../constants";
 import type { CityType } from "../../types";
 import { setTickets } from "../../store/slices/ticketSlice";
@@ -9,28 +9,65 @@ import CityInput from "../HomePage/CityInput/CityInput";
 import DayInputs from "../HomePage/DayInputs/DayInputs";
 import './style.css'
 
-function BookingTicketsForm() {
+interface BookingTicketsFormProps {
+    isHome: boolean;
+}
+
+function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const [passengers, setPassengers] = useState(1)
-    const [trip, setTrip] = useState(TripAlias.ROUND_TRIP)
-    const [departureCity, setDepartureCity] = useState<CityType>({name: '', code: ''})
-    const [arrivalCity, setArrivalCity] = useState<CityType>({name: '', code: ''})
-    const [departureDay, setDepartureDay] = useState<Date | null>(null);
-    const [arrivalDay, setArrivalDay] = useState<Date | null>(null);
+    const { tickets } = useAppSelector(store => store.tickets)
+
+    const parseLocaleDate = (dateStr: string | undefined): Date | null => {
+        if (!dateStr) return null;
+        const parts = dateStr.split('.');
+        if (parts.length === 3) {
+            // Конструктор Date принимает: Год, Месяц (от 0 до 11), День
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            const year = parseInt(parts[2], 10);
+            const date = new Date(year, month, day);
+            return isNaN(date.getTime()) ? null : date;
+        }
+        return null;
+    };
+
+    const [passengers, setPassengers] = useState(tickets?.passengers || 1)
+    const [trip, setTrip] = useState(tickets?.arrivalDay ? TripAlias.ROUND_TRIP : TripAlias.ONE_WAY)
+    const [departureCity, setDepartureCity] = useState<CityType>(tickets?.departureCity || {name: '', code: ''})
+    const [arrivalCity, setArrivalCity] = useState<CityType>(tickets?.arrivalCity || {name: '', code: ''})
+    const [departureDay, setDepartureDay] = useState<Date | null>(parseLocaleDate(tickets?.departureDay));
+    const [arrivalDay, setArrivalDay] = useState<Date | null>(parseLocaleDate(tickets?.arrivalDay));
+
+    useEffect(() => {
+        if (tickets) {
+            if (tickets.departureDay) {
+                setDepartureDay(parseLocaleDate(tickets.departureDay));
+            }
+            if (tickets.arrivalDay) {
+                setArrivalDay(parseLocaleDate(tickets.arrivalDay));
+            }
+            if (tickets.departureCity) setDepartureCity(tickets.departureCity);
+            if (tickets.arrivalCity) setArrivalCity(tickets.arrivalCity);
+            if (tickets.passengers) setPassengers(tickets.passengers);
+        }
+    }, [tickets]); 
 
     function getTickets() {
-        const tickets = {
+        const ticketsData = {
+            train: tickets?.train ,
             passengers,
             departureCity,
             arrivalCity,
             departureDay: departureDay?.toLocaleDateString() || '',
             arrivalDay: arrivalDay?.toLocaleDateString() || ''
         }
-        dispatch(setTickets(tickets))
+        dispatch(setTickets(ticketsData))
 
+        if (isHome) {
         navigate('/search-results')
+    }
     }
 
     const isTicketDisabled = !arrivalCity.name || 
@@ -77,13 +114,13 @@ function BookingTicketsForm() {
                     title="Departure" 
                     city={departureCity}
                     setCity={setDepartureCity}
-                    isHome={true}
+                    isHome={isHome}
                 />
                 <CityInput 
                     title="Arrival" 
                     city={arrivalCity}
                     setCity={setArrivalCity}
-                    isHome={true}
+                    isHome={isHome}
                 />
             </div>
             <DayInputs 
@@ -91,7 +128,7 @@ function BookingTicketsForm() {
                 setDepartureDay={setDepartureDay}
                 arrivalDay={arrivalDay}
                 setArrivalDay={setArrivalDay}
-                isHome={true}
+                isHome={isHome}
                 isArrivalDayActive={trip === TripAlias.ROUND_TRIP}
             />
             <div className="tooltip-wrapper ticket-tooltip-wrapper" data-tooltip={ticketTooltipText()}>

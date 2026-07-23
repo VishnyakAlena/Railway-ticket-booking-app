@@ -26,3 +26,11 @@
     text-transform: capitalize;
     color: var(--white);
 }
+
+.white-text {
+    color: var(--white)
+}
+
+.black-text {
+    color: var(--primary-black-train)
+}

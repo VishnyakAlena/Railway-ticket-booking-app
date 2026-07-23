@@ -32,11 +32,3 @@
     justify-content: space-between;
     font-size: 1.25rem;
 }
-
-.white-text {
-    color: var(--white)
-}
-
-.black-text {
-    color: var(--primary-black-train)
-}

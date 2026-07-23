@@ -3,6 +3,7 @@ import { useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
 import { Trains } from "../../constants"
 import Train from "../../components/SearchResultsPage/Train"
+import BookingTicketsForm from "../../components/BookingTicketsForm/BookingTicketsForm"
 
 function SearchResultsPage(){
     const navigate = useNavigate()
@@ -17,11 +18,13 @@ useEffect(() => {
 
     if(!tickets) navigate('/')
 
-}, [])
+}, [tickets, navigate])
+
 
     return (
         <div>
             <h2>Search Results</h2>
+            <BookingTicketsForm isHome={false}/>
             {Trains.map(train => <Train key={train.id} train={train}/>)}
             <button onClick={goToReview} disabled={!tickets?.train}>Tickets Please!</button>
         </div>
