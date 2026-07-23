@@ -1,6 +1,64 @@
-.passenger-counter {
+.city-input  {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-inline: 112px;
+    flex-direction: column;
+    align-items: start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: calc(50% - 16px);
+}
+
+.label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 16px;
+
+}
+
+.city-input input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 16px 24px;
+    background-color: var(--white);
+    border: none;
+    outline: none;
+}
+
+.city-dropdown-list {
+    position: relative;
+    margin-top: 12px;
+    width: 100%;
+    max-height: 110px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-grey) var(--white);
+    list-style-type: none;
+    padding: 12px;
+    background: var(--white);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.16);
+    animation: dropdownAppear 0.1s ease-in-out;
+    z-index: 10;
+}
+
+.city-input-wrapper {
+    width: 100%;
+    position: relative
+} 
+
+.clear-button {
+    position: absolute;
+    background: transparent;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border: none
+}
+
+.clear-button:hover {
+    transform: translateY(-50%) scale(1);
 }

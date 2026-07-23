@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { indianRailwayStations } from "../../../constants/cities"
 import type { CityType } from "../../../types"
 import './style.css'
 
 type props = {
     title: string
-    isActive: boolean
     city:CityType
     setCity: React.Dispatch<React.SetStateAction<CityType>>
     isHome: boolean
@@ -13,53 +12,84 @@ type props = {
 
 function CityInput({
     title, 
-    isActive,
     city,
     setCity,
     isHome
 }:props) {
     
-    const [findCities, setFindCities] = useState<CityType[]>([])
-    
-    function onInput(text: string) {
-        const finding = indianRailwayStations.filter(city => {
-            const name = city.name.toLocaleLowerCase()
-            const lowText = text.toLocaleLowerCase()
+    const [inputValue, setInputValue] = useState(city.name || '');
+    const [isFocused, setIsFocused] = useState(false);
 
-            if(name.startsWith(lowText) && text) {
-                return city
-            }
-        })
+    useEffect(() => {
+        setInputValue(city.name || '');
+    }, [city.name]);
 
-        setCity({name:text, code:''})
-        setFindCities(finding)
-    }
+    // ДИНАМИЧЕСКАЯ ФИЛЬТРАЦИЯ: вычисляем список городов на лету
+    const filteredCities = indianRailwayStations.filter(station => {
+        // Если в инпуте ничего не введено — возвращаем TRUE для всех станций (показываем весь список)
+        if (!inputValue) return true;
+        
+        // Если текст вводится — фильтруем станции по совпадению букв
+        return station.name.toLowerCase().includes(inputValue.toLowerCase());
+    }).slice(0, 15); // Ограничиваем до 15 элементов, чтобы огромный список не тормозил браузер
 
-    function onClickCity(city:CityType){
-        setFindCities([])
-        setCity(city)
-    }
+    // Срабатывает, когда пользователь выбирает город из выпадающего списка
+    const handleSelectCity = (selectedCity: CityType) => {
+        setCity(selectedCity);       // Сохраняем весь объект города в родительский стейт
+        setInputValue(selectedCity.name); // Записываем имя города в инпут
+        setIsFocused(false);         // Закрываем выпадающий список
+    };
+
+    // Срабатывает, когда пользователь вводит текст с клавиатуры
+    const handleInputChange = (text: string) => {
+        setInputValue(text);
+        // Сбрасываем родительский стейт города, пока пользователь пишет кастомный текст
+        setCity({ ...city, name: text }); 
+    };
+
+    const handleClear = () => {
+        setInputValue('');
+    };
 
     return (
-        <div>
-            <label className={`form-label ${isHome ? 'white-text' : 'black-text'}`} htmlFor={title}>{title}</label>
-            <input 
-                type="text"  
-                id={title} 
-                value={city.name}
-                disabled={!isActive}
-                onChange={(e) => onInput(e.target.value)} 
-            />
-            <ul>
-                {
-                    findCities.map(city => 
-                    <li 
-                        key={city.code} 
-                        onClick={() => onClickCity(city)}>
-                            {city.name}
-                    </li>)
+        <div className="city-input">
+            <label className={`label ${isHome ? 'white-text' : 'black-text'}`} htmlFor={title}>{title}</label>
+            <div className="city-input-wrapper">
+                <input
+                    type="text"  
+                    id={title} 
+                    value={inputValue}
+                    onChange={(e) => handleInputChange(e.target.value)} 
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    autoComplete="off"
+                />
+            
+                {inputValue && (
+                    <button className="clear-button"
+                        onClick={handleClear}>
+                        &#x2715;
+                    </button>
+                    )
                 }
-            </ul>
+            </div>
+            
+            
+            {isFocused && filteredCities.length > 0 && (
+                <ul className="city-dropdown-list">
+                    {filteredCities.map(city => 
+                        <li 
+                            key={city.code} 
+                            onMouseDown={(e) => {
+                                e.preventDefault();
+                                handleSelectCity(city);
+                            }}
+                        >
+                            {city.name}
+                        </li>
+                        )}
+                </ul>
+            )}
         </div>
     )
 }

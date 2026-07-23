@@ -19,7 +19,7 @@ function Header({ isHome }: HeaderProps){
                 <Link className={`nav-link ${isHome ? 'white-text' : 'black-text'}`} to="/">Mobile App</Link>
                 <Link className={`nav-link ${isHome ? 'white-text' : 'black-text'}`} to="#">FAQs</Link>
                 <Link className={`nav-link ${isHome ? 'white-text' : 'black-text'}`} to="#">Contact</Link>
-                <Link className={`nav-link ${isHome ? 'white-text' : 'black-text'}`} to="#">Sign Up</Link>
+                <Link className={`nav-link ${isHome ? 'white-text' : 'black-text'}`} to="#"><b>Sign Up</b></Link>
             </div>
             
         </header>

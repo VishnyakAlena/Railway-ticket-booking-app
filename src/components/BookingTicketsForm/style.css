@@ -1,0 +1,23 @@
+.booking-tickets-form {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 60px;
+    margin-inline: auto;
+    align-items: center;
+}
+
+.cities-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+
+
+
+

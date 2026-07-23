@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import arrowLeft from '../../../assets/icons/Arrow-left.svg'
 import arrowRight from '../../../assets/icons/Arrow-right.svg'
-import calendarIcon from '../../../assets/icons/Calendar.svg'
 import './style.css'
 
 type props = {
@@ -9,6 +8,10 @@ type props = {
     setDepartureDay: React.Dispatch<React.SetStateAction<Date | null>>;
     arrivalDay: Date | null;
     setArrivalDay: React.Dispatch<React.SetStateAction<Date | null>>;
+    onApply: () => void; 
+    onReset: () => void;
+    isApplyDisabled: boolean;
+    isArrivalDayActive: boolean;
 }
 
 const MONTH_NAMES = [
@@ -18,12 +21,18 @@ const MONTH_NAMES = [
 
 const WEEK_NAMES = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
-function DateRangeCalendar({
+const DateRangeCalendar = forwardRef<HTMLDivElement, props>(({
     departureDay: startDate,
     setDepartureDay: setStartDate,
     arrivalDay: endDate,
-    setArrivalDay: setEndDate
-}:props) {
+    setArrivalDay: setEndDate,
+    onApply,
+    onReset,
+    isApplyDisabled,
+    isArrivalDayActive
+}, ref) => {
+
+
     // Текущая дата определяет левый (первый) месяц. Правый месяц всегда будет +1.
     const [currentMonthDate, setCurrentMonthDate] = useState(new Date());
 
@@ -66,7 +75,8 @@ function DateRangeCalendar({
     };
 
     const handleDateClick = (clickedDate: Date) => {
-        if (!startDate || (startDate && endDate)) {
+
+        if (!startDate || (startDate && endDate || !isArrivalDayActive)) {
             setStartDate(clickedDate);
             setEndDate(null);
         } else if (startDate && !endDate) {
@@ -81,7 +91,7 @@ function DateRangeCalendar({
     const isDateInRange = (day: Date) => {
         if (!startDate || !endDate) return false;
         const dateTime = resetTime(day);
-        return dateTime > resetTime(startDate) && dateTime < resetTime(endDate);
+        return dateTime >= resetTime(startDate) && dateTime <= resetTime(endDate);
     };
 
     const isSameDay = (date1: Date, date2: Date | null) => {
@@ -94,17 +104,14 @@ function DateRangeCalendar({
         const offset = getFirstDayOffset(date);
         const monthDays = getMonthData(date);
 
+    
+
         return (
         <div>
-            {/* Заголовок месяца */}
-            <h4 style={{margin: '0 0 15px 0', textAlign: 'center'}}>
-                {MONTH_NAMES[date.getMonth()]} {date.getFullYear()}
-            </h4>
-
             {/* Сетка дней */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '5px', textAlign: 'center' }}>
-                {WEEK_NAMES.map(day => (
-                    <div key={day} style={{ fontWeight: 'bold', padding: '5px 0', color: '#666', fontSize: '13px' }}>
+            <div className='calendar-days'>
+                {WEEK_NAMES.map((day, index) => (
+                    <div className='calendar-week-day' key={`${day}-${index}`}>
                         {day}
                     </div>
                 ))}
@@ -120,34 +127,32 @@ function DateRangeCalendar({
                     const isEnd = isSameDay(dayObj, endDate);
                     const inRange = isDateInRange(dayObj);
 
-                    let background = 'transparent';
-                    let color = '#000';
-                    let borderRadius = '0';
+                    let dayClass = 'calendar-day';
 
                     if (isStart || isEnd) {
-                        background = '#007bff';
-                        color = '#fff';
-                        borderRadius = '50%';
-                    }
+                        dayClass += ' is-boundary';
+                    } 
 
-                    else if (inRange) {
-                        background = '#e6f2ff';
-                        color = '#000'
+                    if (startDate && endDate) {
+
+                        if (inRange) {
+                            dayClass += ' is-in-range'; // Класс применится и к дням внутри, и к самим границам!
+                        }
+                        if (isStart) {
+                            dayClass += ' is-start-edge';
+                        }
+                        if (isEnd) {
+                            dayClass += ' is-end-edge';
+                        }
                     }
+                    
+                    
                 
                     return (
                         <div
                             key={dayObj.toISOString()}
                             onClick={() => handleDateClick(dayObj)}
-                            style={{
-                                    background,
-                                    color,
-                                    borderRadius,
-                                    padding: '8px 0',
-                                    cursor: 'pointer',
-                                    userSelect: 'none',
-                                    fontSize: '14px'
-                                }}
+                            className={dayClass}
                         >
                             {dayObj.getDate()}
                         </div>
@@ -160,38 +165,45 @@ function DateRangeCalendar({
 
     // Главный рендер компонента (двухстраничный календарь)
     return (
-        <div className="calendar-container" style={{ background: '#fff', fontFamily: 'Arial, sans-serif', width: '600px', margin: '20px auto', border: '1px solid #ccc', padding: '20px', borderRadius: '8px' }}>
+        <div ref={ref} className="month-calendar-container">
             {/* Панель управления (стрелки) */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <button onClick={handlePrevMonth} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+            <div className='calendar-header'>
+                <button className='calendar-arrow' onClick={handlePrevMonth}>
                     <img src={arrowLeft} alt="Previous Month" />
                 </button>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold' }}>
-                    <img src={calendarIcon} alt="Calendar" />
-                    <span>Select Dates</span>
+
+                <div className="calendar-header-months">
+                    <div className="calendar-header-month-title">
+                        {MONTH_NAMES[currentMonthDate.getMonth()]} {currentMonthDate.getFullYear()}
+                    </div>
+                    <div className="calendar-header-month-title">
+                        {MONTH_NAMES[nextMonthDate.getMonth()]} {nextMonthDate.getFullYear()}
+                    </div>
                 </div>
-                <button onClick={handleNextMonth} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+
+
+                <button className='calendar-arrow' onClick={handleNextMonth}>
                     <img src={arrowRight} alt="Next Month" />
                 </button>
             </div>
 
             {/* Контейнер для двух месяцев */}
-            <div style={{ display: 'flex', gap: '30px' }}>
+            <div className="calendar-container">
                 <div style={{ flex: 1 }}>{renderMonthGrid(currentMonthDate)}</div>
                 <div style={{ flex: 1 }}>{renderMonthGrid(nextMonthDate)}</div>
             </div>
-
-            {/* Информационная плашка с выбранными датами */}
-            {(startDate || endDate) && (
-                <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '14px', color: '#333' }}>
-                    <strong>Start:</strong> {' '}
-                    {startDate ? startDate.toLocaleDateString() : '...'} {' '}
-                    <strong>End:</strong> {' '}
-                    {endDate ? endDate.toLocaleDateString() : '...'}
-                </div>
-            )}
-        </div>
+            <div style={{ display: 'flex', gap: '30px', marginTop: '20px' }}>
+    {/* Пустой блок-распорка занимает место первого месяца */}
+    <div style={{ flex: 1 }}></div> 
+    
+    {/* Кнопки внутри пространства второго месяца */}
+    <div className='calendar-buttons' style={{ flex: 1, display: 'flex', gap: '10px'}}>
+        <button className="reset-calendar-button" onClick={onReset} disabled={!startDate}>Reset</button>
+        <button className="apply-calendar-button" onClick={onApply} disabled={isApplyDisabled}>Apply</button>
+    </div>
+</div>
+    </div>
     );
-}
+})
 
 export default DateRangeCalendar

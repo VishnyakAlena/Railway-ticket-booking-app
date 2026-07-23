@@ -1,11 +1,12 @@
 .home-page {
-    max-width: 1440px;
+    width: 100%;
     margin: 0 auto;
+    height: calc(100dvh - 115px);
+    padding-inline: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100dvh - 115px)
 }
 
 .main-paragraph {
@@ -13,6 +14,13 @@
     text-transform: lowercase;
 }
 
+.cities-container {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+}
 .city-label {
     font-weight: 600;
     font-size: 16px;

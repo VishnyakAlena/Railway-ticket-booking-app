@@ -1,0 +1,39 @@
+.days-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+}
+
+.day-inputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 32px
+}
+
+.day-inputs__input {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: calc(50% - 16px);
+    background: var(--white);
+    border-radius: 10px;
+    padding:  16px 24px;
+    font-size: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem);
+    height: 53px;
+}
+
+.day-inputs__input._disabled {
+    cursor: not-allowed;        
+    background: var(--primary-blue-train-10);
+}
+
+.date-placeloder {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--primary-grey);
+}
+
