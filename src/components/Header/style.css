@@ -13,7 +13,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px 64px;
     width: 100%;
     height: 115px;
 }
@@ -26,9 +25,167 @@
     font-size: 2.125rem;
 }
 
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0; 
+}
+
 .navigation-block {
     width: 50%;
     display: flex;
     justify-content: space-between;
     font-size: 1.25rem;
+}
+
+.white-bg {
+    background-color: var(--white)
+}
+
+.black-bg {
+    background-color: var(--primary-black-train)
+}
+
+
+.burger-icon {
+    flex-direction: column;
+    gap: 7px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    cursor: pointer;
+    display: none;
+}
+.burger-icon .line1, .burger-icon .line2, .burger-icon .line3{
+    height: 2px;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.burger-icon .line2 {
+    width: 16px;
+}
+.burger-icon .line1, .burger-icon .line3 {
+    width: 30px;
+    transition: transform 0.2s ease-out;
+}
+
+/* ─── React-анимация иконки при открытии (Класс `_open`) ─── */
+.burger-icon._open .line2 {
+    opacity: 0; /* Плавное исчезновение центральной линии */
+}
+
+/* Сдвиг под углом 45 градусов для создания крестика из линий по 30px */
+.burger-icon._open .line1 {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-icon._open .line3 {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.burger-menu {
+    display: none;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+    .navigation-block {
+        display: none !important; /* Намертво скрываем десктопные ссылки */
+    }
+
+    .logo-block span {
+        display: none;
+    }
+
+    .burger-icon {
+        display: flex; /* Показываем иконку бургера (три полоски) */
+    }
+
+    .lock-scroll {
+        overflow: hidden;
+    }
+
+    body.is-mobile-menu-open .burger-menu {
+    display: none;
+    position: fixed;
+    top: 116px;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: calc(100dvh - 115px);
+    box-sizing: border-box; /* Гарантирует правильный расчет высоты с учетом padding */
+    overflow-y: auto;
+    pointer-events: none;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+    .burger-menu {
+        display: none; /* Скрыто по умолчанию, пока нет классов активности */
+        position: fixed;
+        top: 115px;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        height: calc(100dvh - 115px);
+        padding: clamp(64px, 5vw, 128px) clamp(20px, 1.5vw + 14px, 32px);
+        box-sizing: border-box; 
+        overflow-y: auto;
+        pointer-events: none;
+        gap: clamp(64px, 4vw + 48px, 96px);
+        background-color: var(--primary-black-train);
+        pointer-events: none;
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    .burger-menu.active, .burger-menu.closing {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .burger-menu.active {
+        pointer-events: auto;
+        animation: fromRightToLeft 0.4s ease-in-out forwards;
+    }
+
+    .burger-menu.closing {
+        pointer-events: none;
+        animation: closingMenu 0.4s ease-in-out forwards;
+    }
+
+    .burger-menu .nav-link {
+        font-size: clamp(2rem, 1.33rem + 2.96vw, 3rem);
+        color: var(--white);
+        text-align: left;
+    }
+
+@keyframes fromRightToLeft {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes closingMenu {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
 }
