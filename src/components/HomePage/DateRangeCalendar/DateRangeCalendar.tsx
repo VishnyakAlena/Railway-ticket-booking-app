@@ -12,6 +12,7 @@ type props = {
     onReset: () => void;
     isApplyDisabled: boolean;
     isArrivalDayActive: boolean;
+    setActiveField: (field: 'depart' | 'return' | null) => void
 }
 
 const MONTH_NAMES = [
@@ -29,7 +30,8 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, props>(({
     onApply,
     onReset,
     isApplyDisabled,
-    isArrivalDayActive
+    isArrivalDayActive,
+    setActiveField
 }, ref) => {
 
 
@@ -79,11 +81,13 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, props>(({
         if (!startDate || (startDate && endDate || !isArrivalDayActive)) {
             setStartDate(clickedDate);
             setEndDate(null);
+            setActiveField('depart')
         } else if (startDate && !endDate) {
             if (resetTime(clickedDate) < resetTime(startDate)) {
                 setStartDate(clickedDate);
             } else {
                 setEndDate(clickedDate);
+                setActiveField('return')
             }
         }
     };
@@ -188,48 +192,40 @@ const DateRangeCalendar = forwardRef<HTMLDivElement, props>(({
 
     // Главный рендер компонента (двухстраничный календарь)
     return (
-        <div ref={ref} className="month-calendar-container">
-            {/* Панель управления (стрелки) */}
-            <div className='calendar-header'>
-                <button className='calendar-arrow' onClick={handlePrevMonth}>
-                    <img src={arrowLeft} alt="Previous Month" />
-                </button>
-
-                <div className="calendar-header-months">
-                    <div className="calendar-header-month-title">
-                        {MONTH_NAMES[currentMonthDate.getMonth()]} {currentMonthDate.getFullYear()}
+        <div ref={ref} className="calendar-wrapper">
+            <div className='calendar-container'>
+                <div className='month-calendar-container'>
+                    <div className='calendar-header'>
+                        <button className='calendar-arrow' onClick={handlePrevMonth}>
+                            <img src={arrowLeft} alt="Previous Month" />
+                        </button>
+                        <div className="calendar-header-month-title">
+                            {MONTH_NAMES[currentMonthDate.getMonth()]} {currentMonthDate.getFullYear()}
+                        </div>
                     </div>
-                    <div className="calendar-header-month-title">
-                        {MONTH_NAMES[nextMonthDate.getMonth()]} {nextMonthDate.getFullYear()}
+                    <div className='month-dates'>{renderMonthGrid(currentMonthDate)}</div>
+                </div>
+                <div className='month-calendar-container'>
+                    <div className='calendar-header'>
+                        <div className="calendar-header-month-title">
+                            {MONTH_NAMES[nextMonthDate.getMonth()]} {nextMonthDate.getFullYear()}
+                        </div>
+                        <button className='calendar-arrow' onClick={handleNextMonth}>
+                            <img src={arrowRight} alt="Next Month" />
+                        </button>
+                    </div>
+                    <div style={{ flex: 1 }}>{renderMonthGrid(nextMonthDate)}</div>
+                </div>
+            </div>
+            <div className='calendar-buttons'>
+                    <div className="tooltip-wrapper reset-tooltip-wrapper" data-tooltip={resetTooltipText()}>
+                        <button className="reset-calendar-button" onClick={onReset} disabled={!startDate}>Reset</button>
+                    </div>
+                    <div className="tooltip-wrapper apply-tooltip-wrapper" data-tooltip={applyTooltipText()}>
+                        <button className="apply-calendar-button" onClick={onApply} disabled={isApplyDisabled}>Apply</button>
                     </div>
                 </div>
-
-
-                <button className='calendar-arrow' onClick={handleNextMonth}>
-                    <img src={arrowRight} alt="Next Month" />
-                </button>
-            </div>
-
-            {/* Контейнер для двух месяцев */}
-            <div className="calendar-container">
-                <div style={{ flex: 1 }}>{renderMonthGrid(currentMonthDate)}</div>
-                <div style={{ flex: 1 }}>{renderMonthGrid(nextMonthDate)}</div>
-            </div>
-            <div style={{ display: 'flex', gap: '30px', marginTop: '20px' }}>
-    {/* Пустой блок-распорка занимает место первого месяца */}
-    <div style={{ flex: 1 }}></div> 
-    
-    {/* Кнопки внутри пространства второго месяца */}
-    <div className='calendar-buttons'>
-        <div className="tooltip-wrapper reset-tooltip-wrapper" data-tooltip={resetTooltipText()}>
-            <button className="reset-calendar-button" onClick={onReset} disabled={!startDate}>Reset</button>
         </div>
-        <div className="tooltip-wrapper apply-tooltip-wrapper" data-tooltip={applyTooltipText()}>
-            <button className="apply-calendar-button" onClick={onApply} disabled={isApplyDisabled}>Apply</button>
-        </div>
-    </div>
-</div>
-    </div>
     );
 })
 

@@ -88,12 +88,13 @@
 .apply-tooltip-wrapper::after, .reset-tooltip-wrapper::after {
     bottom: 100%;
     left: 10px;
-    color: var(----primary-black-train);
+    color: var(--primary-grey);
     white-space: normal;
     width: 180px;
     padding: 0;
     margin-bottom: 6px;
-    font-size: 0.750rem;
+    font-size: 0.650rem;
+    line-height: 90%;
 }
 
 .ticket-tooltip-wrapper.white-text::after {

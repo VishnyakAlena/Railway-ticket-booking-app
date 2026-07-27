@@ -2,7 +2,6 @@ import './style.css'
 import BookingTicketsForm from "../../components/BookingTicketsForm/BookingTicketsForm"
 
 function HomePage() {
-    
 
     return (
         <div className="home-page">

@@ -34,7 +34,7 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
     };
 
     const [passengers, setPassengers] = useState(tickets?.passengers || 1)
-    const [trip, setTrip] = useState(tickets?.arrivalDay ? TripAlias.ROUND_TRIP : TripAlias.ONE_WAY)
+    const [trip, setTrip] = useState(TripAlias.ROUND_TRIP)
     const [departureCity, setDepartureCity] = useState<CityType>(tickets?.departureCity || {name: '', code: ''})
     const [arrivalCity, setArrivalCity] = useState<CityType>(tickets?.arrivalCity || {name: '', code: ''})
     const [departureDay, setDepartureDay] = useState<Date | null>(parseLocaleDate(tickets?.departureDay));

@@ -1,7 +1,7 @@
 .home-page {
     width: 100%;
     margin: 0 auto;
-    height: calc(100dvh - 115px);
+    min-height: calc(100dvh - 115px);
     padding-inline: 20px;
     display: flex;
     flex-direction: column;

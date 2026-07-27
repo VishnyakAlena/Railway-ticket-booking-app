@@ -53,9 +53,9 @@ function CityInput({
     };
 
     return (
-        <div className="city-input">
+        <div className="city-input-wrapper">
             <label className={`label ${isHome ? 'white-text' : 'black-text'}`} htmlFor={title}>{title}</label>
-            <div className="city-input-wrapper">
+            <div className="city-input">
                 <input
                     type="text"  
                     id={title} 

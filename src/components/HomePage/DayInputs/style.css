@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: start;
     gap: 16px;
+    position: relative;
 }
 
 .day-inputs {
@@ -21,7 +22,9 @@
     background: var(--white);
     border-radius: 10px;
     padding:  16px 24px;
-    font-size: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem);
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-weight: 500;
     height: 53px;
 }
 
@@ -30,10 +33,27 @@
     background: var(--primary-blue-train-10);
 }
 
+.day-inputs__input._focused {
+    border: 1px solid var(--primary-blue-train)
+}
+
 .date-placeloder {
     display: flex;
     gap: 12px;
     align-items: center;
     color: var(--primary-grey);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .day-inputs {
+        flex-direction: column; 
+        gap: 24px;  
+    }
+
+    .day-inputs__input {
+        width: 100%; 
+    }
 }
 
