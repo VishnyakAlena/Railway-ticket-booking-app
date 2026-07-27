@@ -46,7 +46,6 @@
     background-color: var(--primary-black-train)
 }
 
-
 .burger-icon {
     flex-direction: column;
     gap: 7px;
@@ -55,6 +54,7 @@
     cursor: pointer;
     display: none;
 }
+
 .burger-icon .line1, .burger-icon .line2, .burger-icon .line3{
     height: 2px;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
@@ -86,14 +86,7 @@
     display: none;
 }
 
-
-
-
-
-
 @media (max-width: 768px) {
-
-
     .navigation-block {
         display: none !important; /* Намертво скрываем десктопные ссылки */
     }
@@ -111,20 +104,20 @@
     }
 
     body.is-mobile-menu-open .burger-menu {
-    display: none;
-    position: fixed;
-    top: 116px;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    height: calc(100dvh - 115px);
-    box-sizing: border-box; /* Гарантирует правильный расчет высоты с учетом padding */
-    overflow-y: auto;
-    pointer-events: none;
-    flex-direction: column;
-    align-items: start;
-    justify-content: space-between;
-}
+        display: none;
+        position: fixed;
+        top: 116px;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        height: calc(100dvh - 115px);
+        box-sizing: border-box; /* Гарантирует правильный расчет высоты с учетом padding */
+        overflow-y: auto;
+        pointer-events: none;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+    }
 
     .burger-menu {
         display: none; /* Скрыто по умолчанию, пока нет классов активности */

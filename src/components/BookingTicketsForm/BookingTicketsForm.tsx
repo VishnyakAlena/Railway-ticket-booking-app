@@ -102,7 +102,7 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
 };
 
     return (
-        <div className="booking-tickets-form">
+        <div className="booking-tickets-form" id="plannig">
             <PassengerCounter
                 passengers={passengers}
                 setPassengers={setPassengers}

@@ -19,6 +19,7 @@ export type TrainInfo = {
 export type TrainType = {
     id: number,
     name: string,
+    frequency: string,
     info: TrainInfo, 
     railcars: RailcarType[]
 }

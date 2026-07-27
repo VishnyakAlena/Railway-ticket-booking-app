@@ -11,8 +11,7 @@ export const TripAlias = {
 }
 
 export const Trains: TrainType[] = [
-    {
-        id: 22426,
+    {   id: 22426,
         info: {
             departure: {
                 day: 'Nov 16',
@@ -26,6 +25,7 @@ export const Trains: TrainType[] = [
     }
         },
         name: 'VANDE BHARAT',
+        frequency: 'Everyday',
         railcars: [
             {
                 price: 100,
@@ -65,6 +65,7 @@ export const Trains: TrainType[] = [
     }
         },
         name: 'ARUNACHAL EXP',
+        frequency: 'Everyday',
         railcars: [
             {
                 price: 100,
@@ -104,6 +105,7 @@ export const Trains: TrainType[] = [
     }
         },
         name: 'SHATABDI EXPRESS',
+        frequency: 'Everyday',
         railcars: [
             {
                 price: 100,
