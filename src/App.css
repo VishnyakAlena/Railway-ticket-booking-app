@@ -8,6 +8,18 @@
     padding: 0 20px; 
 }
 
+.home-page, .search-results, .review-booking {
+    width: 100%;
+    margin-inline: auto;
+    min-height: calc(100dvh - 115px);
+    display: flex;
+    flex-direction: column; 
+}
+
+.search-results, .review-booking {
+    max-width: 640px;
+}
+
 .center {
     display: flex;
     justify-content: center;

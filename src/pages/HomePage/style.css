@@ -1,12 +1,5 @@
 .home-page {
-    width: 100%;
-    margin-inline: auto;
-    min-height: calc(100dvh - 115px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-inline: clamp(20px, 9.5vw - 48px, 144px); 
+    align-items: center;     
 }
 
 .main-paragraph {

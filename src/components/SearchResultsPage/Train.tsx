@@ -19,16 +19,49 @@ function Train ({train}:props) {
 
     function addTrainToTicket(railcar:RailcarType){
 
-        if(railcar.reserved || railcar.available < (tickets?.passengers || 0)) {
-            console.log('Количество мест меньше, чем пассажиров')
-            return
+        const passengersCount = tickets?.passengers || 1; // Количество пассажиров
+
+        // Создаем копию вагона, чтобы изменить числовые данные перед отправкой в Redux
+        let modifiedRailcar = { ...railcar };
+
+        // СЦЕНАРИЙ 1: Мест достаточно (reserved: false И мест больше или равно числу пассажиров)
+        if (!railcar.reserved && railcar.available >= passengersCount) {
+            // Уменьшаем количество доступных мест на число пассажиров
+            modifiedRailcar.available = railcar.available - passengersCount;
+            
+            // Если места закончились ровно в ноль, переводим вагон в режим ожидания очереди (WL)
+            if (modifiedRailcar.available === 0) {
+                modifiedRailcar.reserved = true;
+            }
         }
+
+        // СЦЕНАРИЙ 2: Вагон УЖЕ находится в режиме очереди (reserved: true)
+        else if (railcar.reserved) {
+            // Выводим alert о добавлении всей группы в лист ожидания
+            alert(`Notice: No seats available. All ${passengersCount} passengers will be added to the Waiting List (WL).`);
+            
+            // Увеличиваем очередь на количество пассажиров
+            modifiedRailcar.available = railcar.available + passengersCount;
+        }
+
+        // СЦЕНАРИЙ 3: Обычные места есть (reserved: false), но их МЕНЬШЕ, чем пассажиров
+        else if (!railcar.reserved && railcar.available < passengersCount) {
+            // Выводим alert, что мест мало и все уходят в лист ожидания
+            alert(`Notice: Only ${railcar.available} seats available for ${passengersCount} passengers. Moving everyone to the Waiting List (WL).`);
+            
+            // Переводим вагон в статус очереди
+            modifiedRailcar.reserved = true;
+            
+            // Логика: к 0 прибавляются пассажиры (или, если очередь еще пустая, размер очереди равен количеству пассажиров)
+            modifiedRailcar.available = passengersCount;
+        }
+
 
         const value = {
             id,
             name,
             info,
-            railcar
+            railcar: modifiedRailcar
         }
 
         const payload = {
