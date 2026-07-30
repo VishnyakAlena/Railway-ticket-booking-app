@@ -28,21 +28,21 @@ export const Trains: TrainType[] = [
         frequency: 'Everyday',
         railcars: [
             {
-                price: 100,
-                available: 33,
+                price: 800,
+                available: 48,
                 reserved: false,
                 name: "3A",
                 tarife: "Tatkal"
             },
             {
-                price: 200,
+                price: 1000,
                 available: 6,
                 reserved: false,
                 name: "2A",
                 tarife: "Tatkal"
             },
             {
-                price: 250,
+                price: 1200,
                 available: 36,
                 reserved: true,
                 name: "1A",
@@ -55,12 +55,12 @@ export const Trains: TrainType[] = [
         info: {
             departure: {
                 day: 'Nov 16',
-                time: '11:25 pm',
+                time: '11:45 pm',
                 city: 'New Delhi - NDLS'
             },
             arrival: {
                 day: 'Nov 17',
-                time: '7:25 am',
+                time: '7:45 am',
                 city: 'Lucknow - LJN'
     }
         },
@@ -68,22 +68,22 @@ export const Trains: TrainType[] = [
         frequency: 'Everyday',
         railcars: [
             {
-                price: 100,
-                available: 33,
+                price: 800,
+                available: 446,
                 reserved: false,
                 name: "3A",
                 tarife: "Tatkal"
             },
             {
-                price: 200,
-                available: 6,
+                price: 1000,
+                available: 166,
                 reserved: false,
                 name: "2A",
                 tarife: "Tatkal"
             },
             {
-                price: 250,
-                available: 36,
+                price: 1400,
+                available: 6,
                 reserved: true,
                 name: "1A",
                 tarife: "Tatkal"
@@ -95,12 +95,12 @@ export const Trains: TrainType[] = [
         info: {
             departure: {
                 day: 'Nov 16',
-                time: '11:25 pm',
+                time: '11:50 pm',
                 city: 'New Delhi - NDLS'
             },
             arrival: {
                 day: 'Nov 17',
-                time: '7:25 am',
+                time: '9:50 am',
                 city: 'Lucknow - LJN'
     }
         },
@@ -108,14 +108,14 @@ export const Trains: TrainType[] = [
         frequency: 'Everyday',
         railcars: [
             {
-                price: 100,
-                available: 33,
+                price: 800,
+                available: 46,
                 reserved: false,
                 name: "3A",
                 tarife: "Tatkal"
             },
             {
-                price: 200,
+                price: 1000,
                 available: 6,
                 reserved: false,
                 name: "2A",

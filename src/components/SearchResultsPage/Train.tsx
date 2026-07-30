@@ -90,7 +90,7 @@ function Train ({train}:props) {
     
     const hours = Math.floor(totalMinutes / 60);
     
-    // Возвращаем красивую строку (например: "8h 0m")
+    // Возвращаем красивую строку
     return `${hours} hours `;
 };
 
@@ -104,11 +104,11 @@ return (
         </div>
         {/* Расписание: отправление и прибытие */}
         <div className="train-info">
-        <div className="departure">
-            <p className="date">{info.departure.day}</p>
-            <p className="time">{info.departure.time}</p>
-            <p className="city">{info.departure.city}</p>
-        </div>
+            <div className="departure">
+                <p className="date">{info.departure.day}</p>
+                <p className="time">{info.departure.time}</p>
+                <p className="city">{info.departure.city}</p>
+            </div>
             <div className="duration-block">
                 <p className="duration-text">{getDuration(info.departure, info.arrival)}</p>
             </div>

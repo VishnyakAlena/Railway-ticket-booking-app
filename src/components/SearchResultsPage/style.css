@@ -52,13 +52,22 @@
     align-items: start;
 }
 
+.departure p {
+    text-align: left;
+}
+
 .arrival {
     align-items: end;
+}
+
+.arrival p {
+    text-align: right;
 }
 
 .duration-block {
     display: flex;
     align-items: center;
+    justify-content: center;
     min-width: 80px; /* Чтобы текст не сжимался */
 }
 
@@ -89,4 +98,12 @@
 .railcar-info, .railcar-price-block {
     display: flex;
     justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .railcars-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
 }

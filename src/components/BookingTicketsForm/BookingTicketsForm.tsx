@@ -132,7 +132,9 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
                 isArrivalDayActive={trip === TripAlias.ROUND_TRIP}
             />
             <div className={`tooltip-wrapper ticket-tooltip-wrapper ${isHome ? 'white-text' : 'black-text'}`} data-tooltip={ticketTooltipText()}>
-                <button className="main-button" onClick={getTickets} disabled={isTicketDisabled}>Ticket, Please!</button>
+                <button className="main-button" onClick={getTickets} disabled={isTicketDisabled}>
+                    {isHome ? "Ticket, Please!" : "Apply Changes"}
+                </button>
             </div>
         </div>
     )
