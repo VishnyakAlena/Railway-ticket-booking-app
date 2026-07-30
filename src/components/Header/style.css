@@ -17,17 +17,16 @@
     height: 115px;
 }
 
-.logo-block {
+.header-logo-block {
     max-width: 50%;
     justify-content: left;
+    align-items: center;
     display: flex;
     gap: 15px;
     font-size: 2.125rem;
 }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
+.header-logo-icon {
     flex-shrink: 0; 
 }
 
@@ -91,7 +90,7 @@
         display: none !important; /* Намертво скрываем десктопные ссылки */
     }
 
-    .logo-block span {
+    .header-logo-block span {
         display: none;
     }
 

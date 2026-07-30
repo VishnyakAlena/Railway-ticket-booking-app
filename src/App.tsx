@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage/HomePage'
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage'
 import ReviewBookingPage from './pages/ReviewBookingPage/ReviewBookingPage'
 import { useEffect } from 'react'
+import Footer from './components/Footer/Footer'
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
           <Route path='/search-results' element={ <SearchResultsPage/> } />
           <Route path='/review-booking' element={ <ReviewBookingPage/> } />
         </Routes>
+        {!isHomePage && <Footer />} 
       </main>
     </>
   )

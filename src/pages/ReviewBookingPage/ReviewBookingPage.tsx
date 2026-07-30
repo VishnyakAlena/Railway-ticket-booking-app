@@ -32,7 +32,7 @@ useEffect(() => {
 }, [])
 
     return (
-        <div>
+        <div className="review-booking">
             <h2>Review your booking</h2>
             
             <input 
