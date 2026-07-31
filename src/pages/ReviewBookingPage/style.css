@@ -1,0 +1,164 @@
+.review-booking {
+    padding-top: 32px;
+    padding-bottom: 128px;
+    gap: 32px;
+}
+
+.review-booking h2 {
+    align-self: flex-start;
+}
+
+.card {
+    border: 1px solid var(--primary-black-train-50);
+    border-radius: 10px;
+    padding: 32px 24px;
+    background-color: var(--white);
+}
+
+.boarding-details {
+    background-color: var(--primary-blue-train-10);
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    text-align: left;
+    gap: 16px;
+}
+
+.boarding-details h3, .boarding-details .train-title {
+    justify-content: left;
+}
+
+.train-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.train-class {
+    color: var(--primary-blue-train);
+}
+
+.passenger-cards-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.food-menu-block {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start; 
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.food-block {
+    display: flex;
+    flex-direction: column;
+    width: 192px;
+    font-size: 0.875rem;
+}
+
+.food-image {
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.food-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 14px;
+}
+
+.food-name {
+    white-space: pre-line;
+}
+
+.food-button {
+    background-color: var(--white);
+    border: 1px solid var(--primary-blue-train);
+    padding: 10px 0;
+    width: 142px;
+}
+
+.food-menu-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.toggle-menu-btn-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.show-menu {
+    color: var(--primary-blue-train);
+    background-color: transparent;
+    border: none;
+    white-space: nowrap;
+}
+
+.buttons-block {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-inline: auto;
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+     /* 1. КОГДА СВЕРНУТО (Отображается 1 блюдо + кнопка сбоку) */
+    .food-menu-block {
+        flex-direction: row;       /* Выстраиваем в ряд */
+        justify-content: space-between;
+        align-items: stretch;      /* Растягиваем кнопку по высоте карточки еды для красоты */
+        gap: 16px;                 /* Расстояние между меню и кнопкой */
+        width: 100%;
+    }
+
+    /* Блок с меню забирает 2 части из 3 (2/3 ширины) */
+    .food-menu-block .food-block {
+        flex: 2 1 0px; 
+        max-width: 100%;
+    }
+
+    /* Кнопка забирает 1 часть из 3 (1/3 ширины) */
+    .food-menu-block .toggle-menu-btn-wrapper {
+        flex: 1 1 0px; 
+        margin-top: 0;             /* Сбрасываем десктопный отступ */
+        align-items: center;       /* Центрируем текст кнопки по вертикали */
+    }
+
+     /* Сама кнопка внутри враппера должна занять всю свою треть */
+    .show-menu {
+        width: 100%;
+        height: 100%;              /* Занимает всю высоту флекс-контейнера */
+        padding: 12px 0;
+    }
+
+    /* 2. КОГДА РАСКРЫТО (Добавился класс ._expanded, все 6 блюд на экране) */
+    .food-menu-block._expanded {
+        flex-direction: column;    /* Перестраиваем в СТОЛБЕЦ */
+        align-items: center;
+        gap: 24px;                 /* Отступы между рядами блюд сверху-вниз */
+    }
+
+    /* При раскрытии сбрасываем пропорции 2:1 и пускаем элементы во всю ширину */
+    .food-menu-block._expanded .food-block,
+    .food-menu-block._expanded .toggle-menu-btn-wrapper {
+        flex: none; 
+        width: 100%;
+    }
+
+
+}
+
+
+
+
+

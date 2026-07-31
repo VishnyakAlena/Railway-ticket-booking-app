@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react"
 import { useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
 import { Trains } from "../../constants"
-import Train from "../../components/SearchResultsPage/Train"
+import Train from "../../components/SearchResultsPage/Train/Train"
 import BookingTicketsForm from "../../components/BookingTicketsForm/BookingTicketsForm"
 import './style.css'
 

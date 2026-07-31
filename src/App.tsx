@@ -6,6 +6,7 @@ import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage'
 import ReviewBookingPage from './pages/ReviewBookingPage/ReviewBookingPage'
 import { useEffect } from 'react'
 import Footer from './components/Footer/Footer'
+import PaymentPage from './pages/PaymentPage/PaymentPage'
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
           <Route path='/' element={ <HomePage/> } />
           <Route path='/search-results' element={ <SearchResultsPage/> } />
           <Route path='/review-booking' element={ <ReviewBookingPage/> } />
+          <Route path='/payment' element={ <PaymentPage /> } />
         </Routes>
         {!isHomePage && <Footer />} 
       </main>

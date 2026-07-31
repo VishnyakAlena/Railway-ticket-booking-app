@@ -41,9 +41,10 @@ export type PassengerType = {
 
 export type FoodType = {
     id: number,
+    image: string;
     name: string,
     price: number,
-    counter: number
+    counter?: number
 }
 
 export type TicketTrainType = {
@@ -55,6 +56,7 @@ export type TicketTrainType = {
 
 export type TicketType = {
     passengers: number,
+    passengersDetails?: PassengerDetailsType[],
     departureCity: CityType,
     arrivalCity: CityType,
     departureDay: string,
@@ -73,3 +75,10 @@ export type PriceType = {
     discount?: number,
     total?: number
 }
+
+export type PassengerDetailsType = {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    birthDate: string;
+};

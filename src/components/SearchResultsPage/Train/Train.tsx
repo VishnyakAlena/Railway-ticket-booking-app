@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import { addToTickets } from "../../store/slices/ticketSlice"
-import { useAppDispatch } from "../../store/storeHooks"
-import { useAppSelector } from "../../store/storeHooks"
+import { addToTickets } from "../../../store/slices/ticketSlice"
+import { useAppDispatch } from "../../../store/storeHooks"
+import { useAppSelector } from "../../../store/storeHooks"
 
-import type { RailcarType, TrainType } from "../../types"
+import type { RailcarType, TrainType } from "../../../types"
 import './style.css'
+import TrainSchedule from "../TrainSchedule/TrainSchedule"
 
 type props = {
     train: TrainType
@@ -99,33 +100,6 @@ function Train ({train}:props) {
         return color
     }
 
-    // Описываем структуру объекта точки (отправления/прибытия)
-    interface TimePoint {
-        day: string;
-        time: string;
-        city: string;
-    }
-
-    const getDuration = (departure: TimePoint, arrival: TimePoint): string => {
-    // Собираем валидные строки дат для JavaScript (например: "Nov 16, 2026 11:25 pm")
-    // Используем текущий или любой фиксированный год, так как нам важна только разница
-    const currentYear = new Date().getFullYear();
-    
-    const depString = `${departure.day}, ${currentYear} ${departure.time}`;
-    const arrString = `${arrival.day}, ${currentYear} ${arrival.time}`;
-    
-    const depTime = new Date(depString).getTime();
-    const arrTime = new Date(arrString).getTime();
-
-    // Получаем разницу в минутах
-    const diffInMs = arrTime - depTime;
-    const totalMinutes = Math.floor(diffInMs / 1000 / 60);
-    
-    const hours = Math.floor(totalMinutes / 60);
-    
-    // Возвращаем красивую строку
-    return `${hours} hours `;
-};
 
 return (
     <div className="train" key={id}>
@@ -135,22 +109,9 @@ return (
             <div>Runs on:</div> 
             <div className="frequency">{frequency}</div>
         </div>
-        {/* Расписание: отправление и прибытие */}
-        <div className="train-info">
-            <div className="departure">
-                <p className="date">{info.departure.day}</p>
-                <p className="time">{info.departure.time}</p>
-                <p className="city">{info.departure.city}</p>
-            </div>
-            <div className="duration-block">
-                <p className="duration-text">{getDuration(info.departure, info.arrival)}</p>
-            </div>
-            <div className="arrival">
-                <p className="date">{info.arrival.day}</p>
-                <p className="time">{info.arrival.time}</p>
-                <p className="city">{info.arrival.city}</p>
-            </div>
-        </div>
+        
+        <TrainSchedule train={train}/>
+
         {/* Список вагонов этого конкретного поезда */}
         <div className="railcars-container">
             {railcars.map((rail) => (
