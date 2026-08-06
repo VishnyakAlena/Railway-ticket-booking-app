@@ -132,6 +132,125 @@
     background-color: transparent;
     border: none;
     white-space: nowrap;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+}
+
+.offers-card {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    align-items: start;
+    border: 2px dashed var(--primary-blue-train);
+}
+
+h4 {
+    color: var(--primary-blue-train);
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.promocode-offer-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.promocode-offer {
+    display: flex;
+    gap: 10px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.promocode-apply-btn {
+    color: var(--primary-blue-train);
+    background-color: transparent;
+    border: none;
+    white-space: nowrap;
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+.promocode-remove-btn {
+    color: var(--red);
+}
+
+.promocode-input-and-extra-baggage-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    width: 100%;
+}
+
+.promocode-input-box, .extra-baggage-box {
+    width: calc(50% - 16px);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.promocode-input-box input {
+    width: 100%;
+    padding: 10px 25px;
+    border: none; 
+    border-bottom: 1px solid var(--primary-black-train-50); 
+    outline: none;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+h5 {
+    font-family: var(--font-family);
+    color: var(--primary-black-train);
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+
+.baggage-btn {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px 25px;
+    border-color: var(--primary-blue-train);
+    font-weight: 500;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+}
+
+.bill-details-box {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font-family: var(--font-family);
+}
+
+.bill-details-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    margin-top: 16px;
+    gap: 8px;
+    color: var(--primary-black-train-50);
+    font-size: 0.875rem;
+}
+
+.bill-details-info-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.total-charge {
+    color: var(--primary-black-train);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-top: 24px;
 }
 
 .buttons-block {
@@ -140,6 +259,24 @@
     flex-direction: column;
     margin-inline: auto;
     gap: 16px;
+}
+
+.book-now-btn {
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.buttons-info {
+    color: var(--primary-black-train-50);
+    font-size: 0.75rem;
+}
+
+.buttons-info-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {
@@ -186,7 +323,13 @@
         width: 100%;
     }
 
+    .promocode-input-and-extra-baggage-box {
+        flex-direction: column;
+    }
 
+    .promocode-input-box, .extra-baggage-box {
+        width: 100%;
+    }
 }
 
 
