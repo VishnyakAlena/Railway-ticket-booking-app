@@ -133,7 +133,7 @@ function BookingTicketsForm({ isHome }: BookingTicketsFormProps) {
             />
             <div className={`tooltip-wrapper ticket-tooltip-wrapper ${isHome ? 'white-text' : 'black-text'}`} data-tooltip={ticketTooltipText()}>
                 <button className="main-button" onClick={getTickets} disabled={isTicketDisabled}>
-                    {isHome ? "Ticket, Please!" : "Apply Changes"}
+                    Ticket, Please!
                 </button>
             </div>
         </div>

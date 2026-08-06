@@ -47,18 +47,19 @@ function ReviewBookingPage(){
         const [visibleCount, setVisibleCount] = useState(getInitialVisibleCount());
         const isFullyExpanded = visibleCount === FOOD_MENU.length;
 
-    // 3. Добавляем слушатель изменения экрана, чтобы стейт подстраивался при повороте телефона
-    useEffect(() => {
-        const handleResize = () => {
-            // Если меню НЕ раскрыто полностью кнопкой, то подстраиваем базовое количество под экран
-            if (visibleCount !== FOOD_MENU.length) {
-                setVisibleCount(window.innerWidth <= 768 ? 1 : 3);
-            }
-        };
+        // Добавляем слушатель изменения экрана, чтобы стейт подстраивался при повороте телефона
+        useEffect(() => {
+            const handleResize = () => {
+                // Если меню НЕ раскрыто полностью кнопкой, то подстраиваем базовое количество под экран
+                if (visibleCount !== FOOD_MENU.length) {
+                    setVisibleCount(window.innerWidth <= 768 ? 1 : 3);
+                }
+            };
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [visibleCount]);
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, [visibleCount]);
+
         const visibleFood = FOOD_MENU.slice(0, visibleCount);
         const handleShowMore = () => {
             setVisibleCount(FOOD_MENU.length); 
@@ -66,6 +67,56 @@ function ReviewBookingPage(){
         const handleShowLess = () => {
             setVisibleCount(window.innerWidth <= 768 ? 1 : 3); 
         };
+
+        const currentFoodList = tickets?.food || [];
+        
+
+
+        // Создаем функцию обработки клика
+        function handleAddFood(foodItem: typeof FOOD_MENU[0]) {
+            // Проверяем, есть ли уже блюдо с таким id в корзине
+            const existingFoodIndex = currentFoodList.findIndex(item => item.id === foodItem.id);
+            let updatedFoodList;
+
+            if (existingFoodIndex > -1) {
+                // Если блюдо НАЙДЕНО, создаем новый массив и увеличиваем counter конкретно у него
+                updatedFoodList = currentFoodList.map((item, index) => 
+                index === existingFoodIndex 
+                    ? { ...item, counter: item.counter + 1 } 
+                    : item
+                );
+            } else {
+                // Если блюдо НЕ найдено, добавляем его в массив и выставляем counter: 1
+                updatedFoodList = [...currentFoodList, { ...foodItem, counter: 1 }];
+            }
+
+            // Отправляем обновленный массив в Redux (ваш ticketSlice сам всё пересчитает)
+            dispatch(addToTickets({ 
+                key: 'food', 
+                value: updatedFoodList 
+            }));
+        }
+
+        // Функция уменьшения количества (кнопка минус)
+        function handleDecreaseFood(foodId: number | string) {
+        const updatedFoodList = currentFoodList.map(item => {
+            if (item.id === foodId) {
+            // Уменьшаем counter, но не позволяем упасть ниже 1
+            return { ...item, counter: Math.max(1, item.counter - 1) };
+            }
+            return item;
+        });
+
+        dispatch(addToTickets({ key: 'food', value: updatedFoodList }));
+        }
+
+        // Функция полного удаления блюда (кнопка Remove)
+        function handleRemoveFood(foodId: number | string) {
+        // Фильтруем массив, исключая удаляемое блюдо
+        const updatedFoodList = currentFoodList.filter(item => item.id !== foodId);
+        
+        dispatch(addToTickets({ key: 'food', value: updatedFoodList }));
+        }
 
 
         const [code, setCode] = useState('')
@@ -109,7 +160,6 @@ function ReviewBookingPage(){
                 </div>
                 {tickets?.train && <TrainSchedule train={tickets.train as unknown as TrainType} />}
             </div>
-            <div>{tickets?.train?.railcar?.reserved ? 'Wish list - WL' : 'Available carriges - Avl'} - {tickets?.train?.railcar?.available}</div>
             <div className="passenger-cards-block">
                 {passengersList.map((passenger, index) => (
                         <PassengerCard 
@@ -122,16 +172,54 @@ function ReviewBookingPage(){
             </div>
             <div className="food-menu-wrapper">
                 <div className={`food-menu-block ${isFullyExpanded ? '_expanded' : ''}`}>
-                    {visibleFood.map((food) => (
-                        <div className="food-block" key={food.id}>
+                    {visibleFood.map((food) => {
+                        const addedFood = currentFoodList.find(item => item.id === food.id);
+                        return (
+                            <div className="food-block" key={food.id}>
                             <img src={food.image} alt={food.name} className="food-image" />
                             <div className="food-info card">
                                 <p className="food-name">{food.name}</p>
                                 <p className="food-price">₹{food.price}</p>
-                                <button className="food-button">Add to ticket</button>
+                                {addedFood ? (
+                                        <div className="food-controls">
+                                            <div className="counter-wrapper">
+                                                <button 
+                                                    className="change-counter" 
+                                                    onClick={() => handleDecreaseFood(food.id)}
+                                                    disabled={addedFood.counter <= 1}
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="quantity">{addedFood.counter}</span>
+                                                <button 
+                                                    className="change-counter" 
+                                                    onClick={() => handleAddFood(food)}
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                            <button 
+                                                className="cancel-button food-remove-btn" 
+                                                onClick={() => handleRemoveFood(food.id)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <button 
+                                            className="food-button" 
+                                            onClick={() => handleAddFood(food)}
+                                        >
+                                            Add to ticket
+                                        </button>
+                                    )}
                             </div>
                         </div>
-                    ))}
+                        )
+
+                    })}
+
+
                     <div className="toggle-menu-btn-wrapper">
                     {visibleCount < FOOD_MENU.length ? (
                         <button 
@@ -172,7 +260,16 @@ function ReviewBookingPage(){
             <div>
                 <p>Bill details</p>
                 <p>Base Ticket Fare: ₹{price.tickets}</p>
-                <p>Paneer Tikka Rice Bowl - Mini: ₹{price.food}</p>
+                {currentFoodList.length > 0 ? (
+                    currentFoodList.map((food, index) => (
+                        <p key={index}>
+                        {food.name} {food.counter > 1 ? ` x ${food.counter}` : ''}: ₹{food.price * food.counter}
+                        </p>
+                    ))
+                    ) : (
+                    // Если массив пустой (длина равна 0), показываем дефолтную строку
+                    <p>Food: ₹0</p>
+                )}
                 <p>Extra Baggage: ₹{price.baggage}</p>
                 <p>CGST & SGST: ₹500.00</p>
                 <p>Discount: ₹{price.discount}</p>

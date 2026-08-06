@@ -90,6 +90,37 @@
     gap: 24px;
 }
 
+.food-controls {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
+.counter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: 30%;
+}
+
+.change-counter {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    background: var(--white);
+    transform: none;
+}
+
+.food-remove-btn {
+    padding: 10px;
+    background-color: var(--white);
+    width: 50%;
+}
+
 .toggle-menu-btn-wrapper {
     display: flex;
     width: 100%;

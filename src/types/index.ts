@@ -44,7 +44,7 @@ export type FoodType = {
     image: string;
     name: string,
     price: number,
-    counter?: number
+    counter: number
 }
 
 export type TicketTrainType = {
