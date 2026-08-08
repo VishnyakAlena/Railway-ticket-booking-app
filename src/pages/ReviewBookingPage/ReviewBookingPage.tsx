@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
 import { addToTickets, setPassengersData } from "../../store/slices/ticketSlice"
 import './style.css'
 import PassengerCard from "../../components/PassengerCard/PassengerCard"
-import type { PassengerDetailsType } from "../../types"
 import { FOOD_MENU, PromoCodes } from "../../constants"
 import BoardingDetails from "../../components/BoardingDetails/BoardingDetails"
+import { useFormik } from "formik"
+import { bookingValidationSchema } from "../../validation/PassengerCardValidation"
 
 const getInitialVisibleCount = () => {
     return window.innerWidth <= 768 ? 1 : 3;
@@ -18,41 +19,45 @@ function ReviewBookingPage(){
         const {tickets, price, passengersData} = useAppSelector(store => store.tickets)
 
         const passengerCount = tickets?.passengers || 1;
+        const savedPassengers = useMemo(() => passengersData || [], [passengersData]);
+        const formik = useFormik({
+            initialValues: useMemo(() => {
+                // Создаем массив строго той длины, которую пользователь выбрал на первой странице
+                const passengers = Array(passengerCount).fill(null).map((_, index) => {
+                    // Если для этого индекса уже есть сохраненные данные в Редаксе — берем их
+                    if (savedPassengers[index]) {
+                        return savedPassengers[index];
+                    }
+                    // Если данных нет (пользователь увеличил количество) — создаем пустые поля
+                    return {
+                        fullName: '',
+                        phoneNumber: '',
+                        email: '',
+                        birthDate: ''
+                    };
+                });
 
-        // Инициализируем стейт строго под структуру вашего типа PassengerDetailsType
-        const [passengersList, setPassengersList] = useState<PassengerDetailsType[]>(() => {
-            if (passengersData && passengersData.length > 0) {
-                return passengersData;
-            }
-            return Array(passengerCount).fill(null).map(() => ({
-                fullName: '',
-                phoneNumber: '',
-                email: '',
-                birthDate: ''
-            }))
+                return { passengers };
+            }, [savedPassengers, passengerCount]),
+            enableReinitialize: true, 
+            validationSchema: bookingValidationSchema,
+            validate: (values) => {
+                const isEmptyForm = values.passengers.every(p => !p.fullName && !p.phoneNumber);
+                const hasSavedData = savedPassengers.length > 0;
+                
+                if (isEmptyForm && hasSavedData) {
+                    return; // Просто выходим, не затирая Redux
+                }
+
+                // Если пользователь реально что-то пишет, сохраняем в Redux
+                dispatch(setPassengersData(values.passengers));
+            },
+            onSubmit: () => {
+                navigate('/payment');
+            },
         });
-
-        const handlePassengerUpdate = (index: number, field: keyof PassengerDetailsType, value: string) => {
-            const updatedList = [...passengersList];
-            updatedList[index] = {
-                ...updatedList[index],
-                [field]: value
-            };
-            setPassengersList(updatedList);
-        };
-        
-
-        const isAllPassengersInfo = passengersList.every(passenger => 
-            passenger.fullName.trim() !== '' &&
-            passenger.phoneNumber.trim() !== '' &&
-            passenger.email.trim() !== '' &&
-            passenger.birthDate.trim() !== ''
-        );
-
-        useEffect(() => {
-            // Автоматически синхронизируем локальный стейт с Redux при любых изменениях
-            dispatch(setPassengersData(passengersList));
-        }, [passengersList, dispatch]);
+        const isFormValid = formik.isValid;
+        const isFormFilled = formik.dirty || savedPassengers.length > 0;
 
         const [visibleCount, setVisibleCount] = useState(getInitialVisibleCount());
         const isFullyExpanded = visibleCount === FOOD_MENU.length;
@@ -128,10 +133,6 @@ function ReviewBookingPage(){
 
         const [code, setCode] = useState('')
 
-        function goToPayment(){
-                navigate('/payment');
-        }
-
         function goToSearch(){
             navigate('/search-results')
         }
@@ -182,16 +183,17 @@ function ReviewBookingPage(){
             <div className="boarding-details-wrapper card">
                 <BoardingDetails />
             </div>
-            <div className="passenger-cards-block">
-                {passengersList.map((passenger, index) => (
-                        <PassengerCard 
-                            key={index}
-                            index={index}
-                            passenger={passenger}
-                            onInputChange={(field, value) => handlePassengerUpdate(index, field, value)}
-                        />
-                    ))}
-            </div>
+            <form id="passengers-info-form" onSubmit={formik.handleSubmit}>
+                <div className="passenger-cards-block">
+                    {formik.values.passengers.map((_, index) => (
+                            <PassengerCard 
+                                key={index}
+                                index={index}
+                                formik={formik}
+                            />
+                        ))}
+                </div>
+            </form>
             <div className="food-menu-wrapper">
                 <div className={`food-menu-block ${isFullyExpanded ? '_expanded' : ''}`}>
                     {visibleFood.map((food) => {
@@ -352,8 +354,14 @@ function ReviewBookingPage(){
 
             <div className="buttons-block">
                 <div className="buttons-info">Discounts, offers and price concessions will be applied later during payment</div>
-                    <div className="tooltip-wrapper passengers-info-tooltip-wrapper" data-tooltip={!isAllPassengersInfo ? 'Please fill paseengers info' : ''}>
-                        <button className="main-button book-now-btn" onClick={goToPayment} disabled={!isAllPassengersInfo || !tickets?.train}>Book Now</button>
+                    <div className="tooltip-wrapper passengers-info-tooltip-wrapper" data-tooltip={(!isFormValid || !isFormFilled) ? 'Please fill paseengers info' : ''}>
+                        <button className="main-button book-now-btn" 
+                            type="submit"
+                            form="passengers-info-form"
+                            disabled={!isFormValid || !isFormFilled}
+                        >
+                            Book Now
+                        </button>
                     </div>
                     <button className="cancel-button book-now-btn" onClick={goToSearch}>Cancel</button>
                     <div className="buttons-info buttons-info-links">

@@ -1,13 +1,36 @@
+import type { FormikProps } from "formik";
 import type { PassengerDetailsType } from "../../types";
 import './style.css'
 
 interface PassengerCardProps {
     index: number;
-    passenger: PassengerDetailsType;
-    onInputChange: (field: keyof PassengerDetailsType, value: string) => void;
+    formik: FormikProps<{ passengers: PassengerDetailsType[] }>;
 }
 
-function PassengerCard({ index, passenger, onInputChange }: PassengerCardProps) {
+function PassengerCard({ index, formik }: PassengerCardProps) {
+    const getFieldProps = (fieldName: keyof PassengerDetailsType) => {
+        const name = `passengers[${index}].${fieldName}`;
+        // getFieldMeta автоматически вернет правильные типы для конкретного поля
+        const meta = formik.getFieldMeta(name); 
+        
+        return {
+            name,
+            value: formik.values.passengers[index]?.[fieldName] || '',
+            onChange: formik.handleChange,
+            onBlur: formik.handleBlur,
+            className: meta.touched && meta.error ? 'input-error' : ''
+        };
+    };
+
+    const getFieldError = (fieldName: keyof PassengerDetailsType) => {
+        const name = `passengers[${index}].${fieldName}`;
+        const meta = formik.getFieldMeta(name);
+
+        return meta.touched && meta.error ? (
+            <span className="error-message">{meta.error}</span>
+        ) : null;
+    };
+
     return (
         <div className="passenger-card-form card">
             <h3>Passenger {index + 1}</h3>
@@ -19,21 +42,19 @@ function PassengerCard({ index, passenger, onInputChange }: PassengerCardProps) 
                         <label>Full Name</label>
                         <input 
                             type="text" 
-                            required
-                            value={passenger.fullName}
-                            onChange={(e) => onInputChange('fullName', e.target.value)}
                             placeholder="You name"
+                            {...getFieldProps('fullName')}
                         />
+                        {getFieldError('fullName')}
                     </div>
                     <div className="input-group">
                         <label>Phone Number</label>
                         <input 
                             type="tel" 
-                            required
-                            value={passenger.phoneNumber}
-                            onChange={(e) => onInputChange('phoneNumber', e.target.value)}
                             placeholder="+91"
+                            {...getFieldProps('phoneNumber')}
                         />
+                        {getFieldError('phoneNumber')}
                     </div>
                 </div>
                 <div className="passenger-inputs-grid-row">
@@ -41,21 +62,19 @@ function PassengerCard({ index, passenger, onInputChange }: PassengerCardProps) 
                         <label>Email Address</label>
                         <input 
                             type="email" 
-                            required
-                            value={passenger.email}
-                            onChange={(e) => onInputChange('email', e.target.value)}
                             placeholder="john.doe@company.com"
+                            {...getFieldProps('email')}
                         />
+                        {getFieldError('email')}
                     </div>
                     <div className="input-group">
                         <label>Birth Date</label>
                         <input 
                             type="text" 
-                            required
-                            value={passenger.birthDate}
-                            onChange={(e) => onInputChange('birthDate', e.target.value)}
                             placeholder="12.12.1975"
+                            {...getFieldProps('birthDate')}
                         />
+                        {getFieldError('birthDate')}
                     </div>
                 </div> 
             </div>

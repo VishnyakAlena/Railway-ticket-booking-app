@@ -32,13 +32,6 @@ export type RailcarType = {
     tarife: string
 }
 
-export type PassengerType = {
-    name: string,
-    email: string,
-    phone: string,
-    dateBirth: string
-}
-
 export type FoodType = {
     id: number,
     image: string;
@@ -62,7 +55,7 @@ export type TicketType = {
     departureDay: string,
     arrivalDay: string,
     train?: TicketTrainType,
-    passengerData?: PassengerType[],
+    passengersData?: PassengerDetailsType[],
     food?: FoodType[],
     extraBaggage?: boolean,
     promoCode?: string
