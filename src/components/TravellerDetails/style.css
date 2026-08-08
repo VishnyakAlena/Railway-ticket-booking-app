@@ -1,0 +1,27 @@
+.traveller-details, .traveller-details-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--font-family);
+    font-weight: 500;
+}
+
+.traveller-details h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.traveller-details-info {
+    font-size: 1rem;
+}
+
+.traveller-details-info-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.traveller-email {
+    margin-top: 16px;
+}

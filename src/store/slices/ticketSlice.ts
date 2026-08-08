@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { PriceType, TicketType } from "../../types";
-import { PromoCodes } from "../../constants";
+import type { PassengerDetailsType, PriceType, TicketType } from "../../types";
+import { PromoCodes, Tax } from "../../constants";
 
 interface ITicketState {
     tickets: TicketType | null,
-    price: PriceType
+    price: PriceType,
+    passengersData: PassengerDetailsType[];
 }
 
 export interface IPayload {
@@ -19,9 +20,11 @@ const initialState:ITicketState = {
         tickets: 0,
         food: 0,
         baggage: 0, 
+        tax: 0,
         discount: 0,
         total: 0
-    }
+    },
+    passengersData: []
 }
 
 const ticketSlice = createSlice({
@@ -46,6 +49,7 @@ const ticketSlice = createSlice({
                 tickets: ticketsPrice,
                 food: foodPrice,
                 baggage: newTickets.extraBaggage ? 500 : 0,
+                tax: Tax
             }
             
             const total = Object.values(newPrice).reduce((acc, value) => {
@@ -60,8 +64,6 @@ const ticketSlice = createSlice({
 
             const discountPrice = (sale / 100) * total
 
-            console.log('discountPrice', discountPrice);
-
             newPrice = {
                 ...newPrice,
                 discount: discountPrice,
@@ -70,9 +72,12 @@ const ticketSlice = createSlice({
 
             state.price = newPrice
             state.tickets = newTickets as TicketType
+        },
+        setPassengersData: (state, action: PayloadAction<PassengerDetailsType[]>) => {
+            state.passengersData = action.payload;
         }
     }
 })
 
-export const {setTickets, addToTickets} = ticketSlice.actions
+export const {setTickets, addToTickets, setPassengersData} = ticketSlice.actions
 export default ticketSlice.reducer

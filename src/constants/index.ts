@@ -13,6 +13,8 @@ export const TripAlias = {
     ROUND_TRIP: 1
 }
 
+export const Tax = 500
+
 export const Trains: TrainType[] = [
     {   id: 22426,
         info: {

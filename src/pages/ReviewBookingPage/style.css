@@ -15,7 +15,7 @@
     background-color: var(--white);
 }
 
-.boarding-details {
+.boarding-details-wrapper {
     background-color: var(--primary-blue-train-10);
     width: 100%; 
     display: flex;
@@ -25,7 +25,7 @@
     gap: 16px;
 }
 
-.boarding-details h3, .boarding-details .train-title {
+.boarding-details h3, .boarding-details, .train-title {
     justify-content: left;
 }
 
@@ -33,10 +33,6 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-.train-class {
-    color: var(--primary-blue-train);
 }
 
 .passenger-cards-block {
@@ -211,14 +207,22 @@ h5 {
     font-size: 1.25rem;
 }
 
-.baggage-btn {
+.baggage-btn, .remove-baggage-btn {
     background-color: var(--white);
     border-radius: 10px;
     padding: 10px 25px;
-    border-color: var(--primary-blue-train);
     font-weight: 500;
     font-family: var(--font-family);
     font-size: 0.875rem;
+}
+
+.baggage-btn {
+    border-color: var(--primary-blue-train);
+}
+
+.remove-baggage-btn {
+    border-color: var(--red);
+    color: var(--red);
 }
 
 .bill-details-box {
@@ -329,6 +333,11 @@ h5 {
 
     .promocode-input-box, .extra-baggage-box {
         width: 100%;
+    }
+
+    .train-title-info {
+        flex-direction: column;
+        gap: 20px;
     }
 }
 

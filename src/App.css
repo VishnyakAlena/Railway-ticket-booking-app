@@ -8,7 +8,7 @@
     padding: 0 20px; 
 }
 
-.home-page, .search-results, .review-booking {
+.home-page, .search-results, .review-booking, .payment-page, .success-page {
     width: 100%;
     margin-inline: auto;
     min-height: calc(100dvh - 115px);
@@ -16,7 +16,7 @@
     flex-direction: column; 
 }
 
-.search-results, .review-booking {
+.search-results, .review-booking, .payment-page, .success-page {
     max-width: 640px;
 }
 
@@ -122,4 +122,18 @@
 
 .ticket-tooltip-wrapper.black-text::after {
     color: var(--primary-black-train) !important;
+}
+
+.passengers-info-tooltip-wrapper::after {
+    bottom: 100%;      
+    left: 50%;          
+    transform: translateX(-50%); 
+    margin-bottom: 8px; 
+    width: 107%;
+    border-radius: 10px;
+    white-space: nowrap; 
+    color: var(--primary-black-train-50);
+    font-size: 0.875rem;
+    background-color: var(--white); 
+    text-align: center;
 }

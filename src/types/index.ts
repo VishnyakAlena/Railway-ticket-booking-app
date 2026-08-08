@@ -72,6 +72,7 @@ export type PriceType = {
     tickets: number,
     food: number,
     baggage: number, 
+    tax: number,
     discount?: number,
     total?: number
 }

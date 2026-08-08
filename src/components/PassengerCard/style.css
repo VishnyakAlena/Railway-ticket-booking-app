@@ -45,6 +45,7 @@
     background-color: var(--bg-gray);
     padding: 16px;
     outline: none;
+    font-family: var(--font-family);
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--primary-gray);

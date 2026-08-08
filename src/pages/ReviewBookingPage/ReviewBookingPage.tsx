@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
-import { addToTickets } from "../../store/slices/ticketSlice"
+import { addToTickets, setPassengersData } from "../../store/slices/ticketSlice"
 import './style.css'
 import PassengerCard from "../../components/PassengerCard/PassengerCard"
-import type { PassengerDetailsType, TrainType } from "../../types"
-import TrainSchedule from "../../components/SearchResultsPage/TrainSchedule/TrainSchedule"
+import type { PassengerDetailsType } from "../../types"
 import { FOOD_MENU, PromoCodes } from "../../constants"
+import BoardingDetails from "../../components/BoardingDetails/BoardingDetails"
 
 const getInitialVisibleCount = () => {
     return window.innerWidth <= 768 ? 1 : 3;
@@ -14,19 +14,23 @@ const getInitialVisibleCount = () => {
 
 function ReviewBookingPage(){
         const navigate = useNavigate()
-        const {tickets, price} = useAppSelector(store => store.tickets)
+        const dispatch = useAppDispatch()
+        const {tickets, price, passengersData} = useAppSelector(store => store.tickets)
 
         const passengerCount = tickets?.passengers || 1;
 
         // Инициализируем стейт строго под структуру вашего типа PassengerDetailsType
-        const [passengersList, setPassengersList] = useState<PassengerDetailsType[]>(
-            Array(passengerCount).fill(null).map(() => ({
+        const [passengersList, setPassengersList] = useState<PassengerDetailsType[]>(() => {
+            if (passengersData && passengersData.length > 0) {
+                return passengersData;
+            }
+            return Array(passengerCount).fill(null).map(() => ({
                 fullName: '',
                 phoneNumber: '',
                 email: '',
                 birthDate: ''
             }))
-        );
+        });
 
         const handlePassengerUpdate = (index: number, field: keyof PassengerDetailsType, value: string) => {
             const updatedList = [...passengersList];
@@ -36,6 +40,7 @@ function ReviewBookingPage(){
             };
             setPassengersList(updatedList);
         };
+        
 
         const isAllPassengersInfo = passengersList.every(passenger => 
             passenger.fullName.trim() !== '' &&
@@ -43,6 +48,11 @@ function ReviewBookingPage(){
             passenger.email.trim() !== '' &&
             passenger.birthDate.trim() !== ''
         );
+
+        useEffect(() => {
+            // Автоматически синхронизируем локальный стейт с Redux при любых изменениях
+            dispatch(setPassengersData(passengersList));
+        }, [passengersList, dispatch]);
 
         const [visibleCount, setVisibleCount] = useState(getInitialVisibleCount());
         const isFullyExpanded = visibleCount === FOOD_MENU.length;
@@ -70,8 +80,6 @@ function ReviewBookingPage(){
 
         const currentFoodList = tickets?.food || [];
         
-
-
         // Создаем функцию обработки клика
         function handleAddFood(foodItem: typeof FOOD_MENU[0]) {
             // Проверяем, есть ли уже блюдо с таким id в корзине
@@ -118,12 +126,10 @@ function ReviewBookingPage(){
         dispatch(addToTickets({ key: 'food', value: updatedFoodList }));
         }
 
-
         const [code, setCode] = useState('')
-        const dispatch = useAppDispatch()
 
-        function goToReview(){
-            navigate('/payment')
+        function goToPayment(){
+                navigate('/payment');
         }
 
         function goToSearch(){
@@ -159,21 +165,22 @@ function ReviewBookingPage(){
             }))
         }
 
+        function removeBaggage(){
+            dispatch(addToTickets({
+                key: 'extraBaggage',
+                value: false
+            }))
+        }
+
     useEffect(() => {
         if(!tickets) navigate('/')
     }, [tickets, navigate])
 
-
     return (
         <div className="review-booking">
             <h2>Review your booking</h2>
-            <div className="boarding-details card">
-                <h3>Boarding Details</h3>
-                <div className="train-info">
-                    <div className="train-title">{tickets?.train?.id} - {tickets?.train?.name}</div>
-                    <div className="train-class">Class {tickets?.train?.railcar?.name} & {tickets?.train?.railcar?.tarife} Quota</div>
-                </div>
-                {tickets?.train && <TrainSchedule train={tickets.train as unknown as TrainType} />}
+            <div className="boarding-details-wrapper card">
+                <BoardingDetails />
             </div>
             <div className="passenger-cards-block">
                 {passengersList.map((passenger, index) => (
@@ -299,7 +306,7 @@ function ReviewBookingPage(){
             
                 <div className="extra-baggage-box card">
                     <h5>Extra Baggage</h5>
-                    <button className="baggage-btn" onClick={addBaggage}>Add to Ticket</button>
+                    {!tickets?.extraBaggage ? <button className="baggage-btn" onClick={addBaggage}>Add to ticket</button> : <button className="remove-baggage-btn" onClick={removeBaggage}>Remove</button>}
                 </div>
             </div>
 
@@ -308,51 +315,53 @@ function ReviewBookingPage(){
                 <div className="bill-details-info">
                     <div className="bill-details-info-row">
                         <div>Base Ticket Fare: </div>
-                        <div>₹{price.tickets}</div>
+                        <div>₹{price.tickets.toFixed(2)}</div>
                     </div>
                     {currentFoodList.length > 0 ? (
                             currentFoodList.map((food, index) => (
                                 <div className="bill-details-info-row" key={index}>
                                     <div>{food.name} {food.counter > 1 ? ` x ${food.counter}` : ''}:</div>
-                                    <div> ₹{food.price * food.counter}</div>
+                                    <div> ₹{(food.price * food.counter).toFixed(2)}</div>
                                 </div>
                                 ))
                                 ) : (
-                                <div className="food-item-row">
-                                <div>Food:</div>
-                                <div>₹0</div>
+                                <div className="bill-details-info-row">
+                                    <div>Food:</div>
+                                    <div>₹0.00</div>
                                 </div>
                         )}
                     
                     <div className="bill-details-info-row">
                         <div>Extra Baggage:</div>
-                        <div>₹{price.baggage}</div>
+                        <div>₹{price.baggage.toFixed(2)}</div>
                     </div>
                     <div className="bill-details-info-row">
                         <div>CGST & SGST:</div>
-                        <div>₹500.00</div>
+                        <div>₹{price.tax.toFixed(2)}</div>
                     </div>
                     <div className="bill-details-info-row">
                         <div>Discount:</div>
-                        <div>{price.discount && price.discount > 0 ? `-₹${price.discount}` : '₹0'}</div>
+                        <div>{price.discount && price.discount > 0 ? `-₹${price.discount.toFixed(2)}` : '₹0.00'}</div>
                     </div>
                     <div className="bill-details-info-row total-charge">
                         <div>Total Charge:</div> 
-                        <div>₹{price.total}</div>
+                        <div>₹{(price.total ?? 0).toFixed(2)}</div>
                     </div>
                 </div>
             </div>
 
             <div className="buttons-block">
                 <div className="buttons-info">Discounts, offers and price concessions will be applied later during payment</div>
-                <button className="main-button book-now-btn" onClick={goToReview} disabled={!isAllPassengersInfo || !tickets?.train}>Book Now</button>
-                <button className="cancel-button book-now-btn" onClick={goToSearch}>Cancel</button>
-                <div className="buttons-info buttons-info-links">
-                    <div>Cancellation Policy</div>
-                    <div>Terms & Conditions</div>
-                    <div>Travel Insurance</div>
+                    <div className="tooltip-wrapper passengers-info-tooltip-wrapper" data-tooltip={!isAllPassengersInfo ? 'Please fill paseengers info' : ''}>
+                        <button className="main-button book-now-btn" onClick={goToPayment} disabled={!isAllPassengersInfo || !tickets?.train}>Book Now</button>
+                    </div>
+                    <button className="cancel-button book-now-btn" onClick={goToSearch}>Cancel</button>
+                    <div className="buttons-info buttons-info-links">
+                        <div>Cancellation Policy</div>
+                        <div>Terms & Conditions</div>
+                        <div>Travel Insurance</div>
+                    </div>
                 </div>
-            </div>
         </div>
     )
 }

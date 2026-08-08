@@ -3,3 +3,11 @@
     padding-top: 32px;
     padding-bottom: 128px;
 }
+
+.payment-page h2 {
+    align-self: flex-start;
+}
+
+.total-price {
+    color: var(--red)
+}
