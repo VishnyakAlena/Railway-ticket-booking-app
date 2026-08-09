@@ -4,10 +4,101 @@
     padding-bottom: 128px;
 }
 
-.payment-page h2 {
+.payment-page h2, .payment-method-title h4, .payment-description {
     align-self: flex-start;
 }
 
 .total-price {
     color: var(--red)
+}
+
+.payment-method-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-method-title h4 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -3%;
+    color: var(--primary-black-train);
+    line-height: 150%;
+}
+
+.payment-description {
+    line-height: 150%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -3%;
+    color: var(--primary-black-train-50);
+}
+
+.payment-radio-option {
+    background-color: var(--primary-grey-50);
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.radio-option label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.radio-option input[type="radio"]:checked + .payment-custom-radio {
+    background-color: white;
+}
+
+.payment-method-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.payment-custom-radio {
+    margin-right: 16px;
+    background-color: var(--white);
+    border: 1.5px solid var(--primary-grey);
+}
+
+.credit-card-inputs-grid {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.credit-card-inputs-grid-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.input-group input {
+    background-color: var(--white);
+}
+
+.radio-label-credit-card {
+    justify-content: space-between; /* Разносит элементы по противоположным краям */
+    width: 100%;     
+}
+
+.save-data {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    gap: 23px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .credit-card-inputs-grid-row {
+        flex-direction: column;
+    }
+
+    .credit-card-inputs-grid-row {
+        width: 100%;
+    }
 }

@@ -25,3 +25,9 @@
 .traveller-email {
     margin-top: 16px;
 }
+
+@media (max-width: 768px) {
+    .traveller-email {
+        flex-direction: column;
+    }
+}

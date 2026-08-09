@@ -44,6 +44,7 @@
 .cancel-button {
     border: 1px solid var(--red);
     color: var(--red);
+    background-color: var(--white);
 }
 
 .white-text {

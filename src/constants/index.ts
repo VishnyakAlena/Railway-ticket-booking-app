@@ -174,3 +174,9 @@ export const FOOD_MENU: FoodType[] = [
         counter: 0,
     },
 ]
+
+export const PaymentMethod = {
+    CREDIT_CARD: 1,
+    PAY_PAL: 2,
+    BITCOIN:3
+}

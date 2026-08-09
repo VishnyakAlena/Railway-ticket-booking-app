@@ -4,3 +4,151 @@
     flex-direction: column;
     gap: 32px;
 }
+
+.offers-card {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    align-items: start;
+    border: 2px dashed var(--primary-blue-train);
+}
+
+h4 {
+    color: var(--primary-blue-train);
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.promocode-offer-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 44px;
+}
+
+.promocode-offer {
+    display: flex;
+    gap: 10px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 1rem;
+    align-items: center;
+}
+
+.promocode-offer span{
+    text-align: left;
+}
+
+.promocode-apply-btn {
+    color: var(--primary-blue-train);
+    background-color: transparent;
+    border: none;
+    white-space: nowrap;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.promocode-remove-btn {
+    color: var(--red);
+    font-weight: 500;
+}
+
+.promocode-input-and-extra-baggage-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    width: 100%;
+}
+
+.promocode-input-box, .extra-baggage-box {
+    width: calc(50% - 16px);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.promocode-input-box input {
+    width: 100%;
+    padding: 10px 25px;
+    border: none; 
+    border-bottom: 1px solid var(--primary-black-train-50); 
+    outline: none;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+h5 {
+    font-family: var(--font-family);
+    color: var(--primary-black-train);
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+
+.baggage-btn, .remove-baggage-btn {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-weight: 500;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+}
+
+.baggage-btn {
+    border-color: var(--primary-blue-train);
+}
+
+.remove-baggage-btn {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.bill-details-box {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font-family: var(--font-family);
+}
+
+.bill-details-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    margin-top: 16px;
+    gap: 8px;
+    color: var(--primary-black-train-50);
+    font-size: 0.875rem;
+}
+
+.bill-details-info-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.bill-details-info-row > div:first-child {
+    text-align: left;
+}
+
+.total-charge {
+    color: var(--primary-black-train);
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+    .promocode-input-and-extra-baggage-box {
+        flex-direction: column;
+    }
+
+    .promocode-input-box, .extra-baggage-box {
+        width: 100%;
+    }
+}
