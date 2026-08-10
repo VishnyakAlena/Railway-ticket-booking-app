@@ -57,7 +57,6 @@ function Train ({train}:props) {
             modifiedRailcar.available = passengersCount;
         }
 
-
         const value = {
             id,
             name,
@@ -71,8 +70,6 @@ function Train ({train}:props) {
         }
 
         dispatch(addToTickets(payload))
-        
-        console.log('New tickets', {tickets})
 
         navigate('/review-booking')
         

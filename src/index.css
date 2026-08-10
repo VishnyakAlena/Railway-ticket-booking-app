@@ -48,8 +48,8 @@
 }
 
 body {
-    background-color: #F5F5F5;
-    overflow-x: hidden;
+  background-color: #F5F5F5;
+  overflow-x: hidden;
 }
 
 body.home-page-active {

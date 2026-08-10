@@ -75,7 +75,7 @@
     gap: 16px;
 }
 
-.input-group input {
+.credit-card-input-group input {
     background-color: var(--white);
 }
 

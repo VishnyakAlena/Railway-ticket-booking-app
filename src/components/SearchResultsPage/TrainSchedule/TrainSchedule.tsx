@@ -1,4 +1,6 @@
 import type { TrainType } from "../../../types"
+import './style.css'
+
 
 type props = {
     train: TrainType
@@ -40,16 +42,20 @@ function TrainSchedule ({train}:props) {
         <div className="train-info">
             <div className="departure">
                 <p className="date">{info.departure.day}</p>
-                <p className="time">{info.departure.time}</p>
-                <p className="city">{info.departure.city}</p>
+                <div>
+                    <p className="time">{info.departure.time}</p>
+                    <p className="city">{info.departure.city}</p>
+                </div>
             </div>
             <div className="duration-block">
                 <p className="duration-text">{getDuration(info.departure, info.arrival)}</p>
             </div>
             <div className="arrival">
                 <p className="date">{info.arrival.day}</p>
-                <p className="time">{info.arrival.time}</p>
-                <p className="city">{info.arrival.city}</p>
+                <div>
+                    <p className="time">{info.arrival.time}</p>
+                    <p className="city">{info.arrival.city}</p>
+                </div>
             </div>
         </div>
     )

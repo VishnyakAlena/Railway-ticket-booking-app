@@ -70,7 +70,6 @@ const ticketSlice = createSlice({
             if (newTickets.promoCode) {
                 sale = PromoCodes[(newTickets.promoCode as keyof typeof PromoCodes)] || 0
             }
-            console.log('sale', sale);
 
             const discountPrice = (sale / 100) * total
 

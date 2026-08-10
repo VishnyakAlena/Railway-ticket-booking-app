@@ -1,0 +1,13 @@
+.departure, .arrival {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date {
+    font-weight: 500;
+}
+
+.time, .city {
+    font-weight: 400;
+}
