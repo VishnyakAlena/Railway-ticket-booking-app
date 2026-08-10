@@ -146,6 +146,7 @@
 }
 
 .passengers-info-tooltip-wrapper::after, .payment-info-tooltip-wrapper::after {
+    display: none;
     bottom: 100%;      
     left: 50%;          
     margin-bottom: 8px; 
@@ -155,7 +156,6 @@
     color: var(--primary-black-train-50);
     font-size: 0.875rem;
     background-color: var(--white); 
-    border: 1px solid var(--primary-black-train-50); /* Добавлен бордюр, чтобы плашка не сливалась */
     text-align: center;
 }
 
