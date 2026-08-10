@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer'
 import PaymentPage from './pages/PaymentPage/PaymentPage'
 import SuccessPage from './pages/SuccessPage/SuccessPage'
 import MissingPage from './pages/MissingPage/MissingPage'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,8 @@ function App() {
       document.body.classList.remove('home-page-active');
     }
 }, [location.pathname]); 
+
+  <ScrollToTop />
 
   return (
     <>
