@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { PassengerDetailsType, PriceType, TicketType } from "../../types";
+import type { FoodType, PassengerDetailsType, PriceType, TicketType } from "../../types";
 import { PromoCodes, Tax } from "../../constants";
 import type { CardFormValues } from "../../validation/PaymentValidation";
 
@@ -9,7 +9,8 @@ interface ITicketState {
     price: PriceType,
     passengersData: PassengerDetailsType[],
     paymentMethod: number,
-    cardDetails: CardFormValues
+    cardDetails: CardFormValues,
+    currentFoodList: FoodType[]
 }
 
 export interface IPayload {
@@ -28,6 +29,7 @@ const initialState:ITicketState = {
         total: 0
     },
     passengersData: [],
+    currentFoodList: [],
     paymentMethod: 1,
     cardDetails: {
         cardNumber: '',
@@ -90,9 +92,27 @@ const ticketSlice = createSlice({
         },
         setPaymentMethod: (state, action: PayloadAction<number>) => {
             state.paymentMethod = action.payload;
+        },
+        clearCurrentBooking: (state) => {
+            // Возвращаем дефолтные пустые значения для заказа
+            state.price = { total: 0, tickets: 0, baggage: 0, tax: 0, discount: 0, food: 0};
+            state.paymentMethod = 1; 
+            state.passengersData = []; 
+            state.currentFoodList = []; 
+            
+            // Поле tickets (где лежит текущий выбранный поезд для этого заказа) тоже обнуляем
+            state.tickets = {
+                train: undefined,
+                passengers: 1,
+                extraBaggage: false,
+                departureCity: {name: '', code: ''}, // Обнуляем город отправления
+                arrivalCity: {name: '', code: ''},   // Обнуляем город прибытия
+                departureDay: '',  // Обнуляем дату отправления
+                arrivalDay: '',
+            }
         }
     }
 })
 
-export const {setTickets, addToTickets, setPassengersData, setCardDetails, setPaymentMethod} = ticketSlice.actions
+export const {setTickets, addToTickets, setPassengersData, setCardDetails, setPaymentMethod, clearCurrentBooking} = ticketSlice.actions
 export default ticketSlice.reducer
