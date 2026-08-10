@@ -50,6 +50,7 @@
 body {
   background-color: #F5F5F5;
   overflow-x: hidden;
+  overflow-y: auto;             
   margin: 0 !important;
   padding: 0 !important;
   position: relative;
@@ -60,7 +61,12 @@ body.home-page-active {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  overflow: hidden;
+  min-height: 100dvh; 
+  height: auto; 
+  overflow-y: scroll !important;             
+  overflow-x: hidden;
+  display: block !important;
+
 }
 
 
