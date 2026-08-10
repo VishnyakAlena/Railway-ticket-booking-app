@@ -8,23 +8,25 @@ import { useEffect } from 'react'
 import Footer from './components/Footer/Footer'
 import PaymentPage from './pages/PaymentPage/PaymentPage'
 import SuccessPage from './pages/SuccessPage/SuccessPage'
+import MissingPage from './pages/MissingPage/MissingPage'
 
 function App() {
   const location = useLocation();
-  const isHomePage = location.pathname === '/'; // true, если мы на главной
-  // Следим за изменением страницы
+  const validPaths = ['/', '/search-results', '/review-booking', '/payment', '/success'];
+  const isHomePage = location.pathname === '/'; 
+  const isMissingPage = !validPaths.includes(location.pathname); 
+
   useEffect(() => {
-    if (location.pathname === '/') {
-      // Если мы на главной, добавляем класс к body
+    if (isHomePage) {
       document.body.classList.add('home-page-active');
     } else {
-      // Если ушли на другую страницу, убираем этот класс
       document.body.classList.remove('home-page-active');
     }
 
-     // Чистим класс при размонтировании компонента (хорошая практика)
-    return () => document.body.classList.remove('home-page-active');
-  }, [location.pathname]); // Эффект срабатывает каждый раз, когда меняется URL
+    return () => {
+      document.body.classList.remove('home-page-active');
+    }
+}, [location.pathname]); 
 
   return (
     <>
@@ -36,8 +38,9 @@ function App() {
           <Route path='/review-booking' element={ <ReviewBookingPage/> } />
           <Route path='/payment' element={ <PaymentPage /> } />
           <Route path='/success' element={ <SuccessPage /> } />
+          <Route path="*" element={<MissingPage />} />
         </Routes>
-        {!isHomePage && <Footer />} 
+        {!isHomePage && !isMissingPage && <Footer />}
       </main>
     </>
   )

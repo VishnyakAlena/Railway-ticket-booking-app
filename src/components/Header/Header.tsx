@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import './style.css'
 
 interface HeaderProps {
-  isHome: boolean; // Тип строго boolean (true или false)
+    isHome: boolean;
 }
 
 function Header({ isHome }: HeaderProps){
