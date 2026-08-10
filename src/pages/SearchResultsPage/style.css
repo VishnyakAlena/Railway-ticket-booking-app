@@ -1,0 +1,65 @@
+.search-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 143px;
+}
+
+.search-results h2 {
+    align-self: flex-start;
+}
+
+.pictures-block {
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 45px;
+}
+
+.picture {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-inline: 25px;
+    gap: 10px;
+}
+
+.picture:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.planning-your-holidays {
+    background-image: url('../../assets/images/planning-your-holidays.jpg');
+}
+
+.train-tourism-packages {
+    background-image: url('../../assets/images/train-tourism-packages.jpg');
+}
+
+.pictures-block-text {
+    color: var(--primary-black-train-50);
+    text-align: left;
+    font-size: 0.750rem;
+}
+
+.trains {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 5vw, 32px);
+}
+
+.trains-title {
+    color: var(--primary-black-train);
+    font-weight: 500;
+    margin-bottom: clamp(24px, 4vw, 28px);
+}

@@ -1,0 +1,52 @@
+.missing-page {
+    align-items: center;   
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    min-height: calc(100% - 230px);
+    margin: auto auto;
+    gap: 24px;
+}
+
+.missing-page img {
+    width: 100%;       /* Растягивается на всю ширину на мобильных... */
+    max-width: 400px;  /* ...но на больших экранах не станет крупнее 400px (примерно 25rem) */
+    height: auto;
+    margin: 0 auto;    /* Центрирует картинку, если родитель — блочный элемент */
+}
+
+.missing-page h2 {
+    font-family: var(--font-family);
+    font-size: clamp(1.875rem, 1.125rem + 2.5vw, 3.125rem);
+    font-weight: 700;
+    color: var(--primary-black-train);
+    margin-top: 60px;
+}
+
+.missing-page-description {
+    font-size: clamp(0.75rem, 0.45rem + 1vw, 1.25rem);
+    font-weight: 500;
+    color: var(--primary-black-train);
+}
+
+.missing-page-btn {
+    padding: 16px 59px;
+    width: fit-content;
+    margin-top: 64px;
+    font-size: clamp(0.875rem, 0.65rem + 0.5vw, 1.125rem);
+}
+
+@media (max-width: 768px) {
+    .missing-page {
+        gap: 14px;
+    }
+
+    .missing-page-btn {
+        margin-top: 45px;
+        padding: 12px 30px;
+    }
+
+    .missing-page h2 {
+        margin-top: 32px;
+    }
+}

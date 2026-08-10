@@ -1,13 +1,157 @@
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+.app-container {
+    max-width: 1440px;
+    width: 100%;
+    min-height: 100dvh;
+    display: flex; 
+    flex-direction: column;
+    margin-inline:  auto;
+    padding: 0 20px; 
+}
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+.home-page, .search-results, .review-booking, .payment-page, .success-page, .missing-page {
+    width: 100%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column; 
+    gap: 32px;
+}
+
+.search-results, .review-booking, .payment-page, .success-page {
+    max-width: 640px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border: 1px solid var(--primary-black-train-50);
+    border-radius: 10px;
+    padding: 32px 24px;
+    background-color: var(--white);
+}
+
+.main-button, .cancel-button, .food-button {
+    border-radius: 10px;
+    padding: 16px 0;
+    width: 100%;
+    font-family: var(--font-family);
+    border: none;
+}
+
+.main-button {
+    background: var(--primary-blue-train);
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    color: var(--white);
+}
+
+.cancel-button {
+    border: 1px solid var(--red);
+    color: var(--red);
+    background-color: var(--white);
+}
+
+.white-text {
+    color: var(--white)
+}
+
+.black-text {
+    color: var(--primary-black-train)
+}
+
+.cities-container {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+}
+.city-label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Стилизация самой подсказки */
+.tooltip-wrapper::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 6px 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    pointer-events: none; /* Чтобы подсказка не мешала мыши */
+}
+
+/* Показ подсказки при наведении на контейнер */
+.tooltip-wrapper:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ticket-tooltip-wrapper {
+    width: 100%;
+}
+
+.ticket-tooltip-wrapper::after {
+    top: 100%;
+    left: 50%;
+    margin-top: 8px;
+    color: var(--white);
+    white-space: nowrap;
+    font-size: 0.875rem;
+}
+
+.apply-tooltip-wrapper::after, .reset-tooltip-wrapper::after {
+    bottom: 100%;
+    left: 10px;
+    color: var(--primary-grey);
+    white-space: normal;
+    width: 180px;
+    padding: 0;
+    margin-bottom: 6px;
+    font-size: 0.650rem;
+    line-height: 90%;
+}
+
+.ticket-tooltip-wrapper.white-text::after {
+    color: var(--white);
+}
+
+.ticket-tooltip-wrapper.black-text::after {
+    color: var(--primary-black-train) !important;
+}
+
+.passengers-info-tooltip-wrapper::after, .payment-info-tooltip-wrapper::after {
+    content: attr(data-tooltip); /* СВЯЗЫВАЕМ С JSX: выводит текст из атрибута data-tooltip */
+    position: absolute;          /* ОБЯЗАТЕЛЬНО: включает работу координат bottom и left */
+    display: none;      
+
+    bottom: 100%;      
+    left: 50%;          
+    transform: translateX(-50%); 
+    margin-bottom: 8px; 
+    width: 100%;
+    border-radius: 10px;
+    white-space: nowrap; 
+    color: var(--primary-black-train-50);
+    font-size: 0.875rem;
+    background-color: var(--white); 
+    text-align: center;
+}
+
+.passengers-info-tooltip-wrapper[data-tooltip]:has(button:disabled):hover::after, 
+.payment-info-tooltip-wrapper[data-tooltip]:has(button:disabled):hover::after {
+    display: block;              /* Показываем плашку */
 }

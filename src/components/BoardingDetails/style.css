@@ -1,0 +1,57 @@
+.boarding-details-wrapper {
+    background-color: var(--primary-blue-train-10);
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    text-align: left;
+    gap: 16px;
+}
+
+.boarding-details h3, .boarding-details, .train-title {
+    justify-content: left;
+}
+
+.train-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.boarding-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--font-family);
+    font-weight: 500;
+}
+
+.boarding-details h3, .train-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.error-text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.train-title-info {
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.train-title-info div {
+    text-align: left;
+}
+
+.train-class {
+    color: var(--primary-blue-train);
+    font-size: 1rem;
+}
+
+.train-class.hidden,  .boarding-details h3.hidden{
+    display: none;
+}
+

@@ -1,0 +1,59 @@
+.days-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+    position: relative;
+}
+
+.day-inputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 32px
+}
+
+.day-inputs__input {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: calc(50% - 16px);
+    background: var(--white);
+    border-radius: 10px;
+    padding:  16px 24px;
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-weight: 500;
+    height: 53px;
+}
+
+.day-inputs__input._disabled {
+    cursor: not-allowed;        
+    background: var(--primary-blue-train-10);
+}
+
+.day-inputs__input._focused {
+    border: 1px solid var(--primary-blue-train)
+}
+
+.date-placeloder {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--primary-grey);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .day-inputs {
+        flex-direction: column; 
+        gap: 24px;  
+    }
+
+    .day-inputs__input {
+        width: 100%; 
+    }
+}
+

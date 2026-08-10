@@ -1,0 +1,109 @@
+.train {
+    max-width: 100%;
+    border: 1px solid var(--primary-black-train-50);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.train:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.train-title {
+    font-size: 1rem;
+    font-weight: 500;
+    align-self: flex-start;
+}
+
+.train-subtitle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 500;
+    width: fit-content;
+    gap: 6px;
+}
+
+.frequency {
+    border: 1px solid var(--primary-black-train);
+    border-radius: 8px;
+    padding: 5px 15px;
+}
+
+.train-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date {
+    font-weight: 500;
+}
+
+.departure, .arrival {
+    display: flex;
+    flex-direction: column;
+}
+
+.departure {
+    align-items: start;
+}
+
+.departure p {
+    text-align: left;
+}
+
+.arrival {
+    align-items: end;
+}
+
+.arrival p {
+    text-align: right;
+}
+
+.duration-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px; /* Чтобы текст не сжимался */
+}
+
+.duration-text {
+    font-size: 0.625rem;
+    color: var(--primary-grey);
+    margin: 0;
+}
+
+.railcars-container {
+    display: flex;
+    gap: 56px;
+}
+
+.railcar-card {
+    width: 160px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+}
+
+.railcar-card:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.railcar-info, .railcar-price-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .railcars-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+}

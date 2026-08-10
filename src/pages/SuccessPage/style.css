@@ -1,0 +1,79 @@
+.success-page {
+    padding-top: 32px;
+    padding-bottom: 128px;
+}
+
+.success-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.success-title {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.success-title img {
+    width: 130px;
+}
+
+.success-title h2 {
+    color: #31A91D;
+    font-size: clamp(1.5rem, 1rem + 2.5vw, 1.875rem);
+}
+
+.transactions-numbers {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.transactions-numbers div {
+    text-align: left;
+}
+
+.qr-code-block {
+    display: flex;
+    width: 100%;
+    gap: 77px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.success-buttons-block {
+    padding: 0;
+    width: 50%;
+}
+
+.success-buttons-block button{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
+@media (max-width: 768px) {
+    .transactions-numbers {
+        flex-direction: column;
+        align-items: start;
+        gap: 8px;
+    }
+
+    .qr-code-block { 
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .qr-code, .success-buttons-block {
+        width: 100%;
+    }
+}
+
+
