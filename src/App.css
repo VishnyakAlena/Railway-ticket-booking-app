@@ -6,8 +6,7 @@
     display: flex; 
     flex-direction: column;
     margin-inline:  auto;
-    padding: 0 20px; 
-    overflow-y: auto; 
+    padding: 0 20px;  
     overflow-x: hidden;
 }
 
