@@ -27,14 +27,13 @@ function App() {
     return () => {
       document.body.classList.remove('home-page-active');
     }
-}, [location.pathname]); 
-
-  <ScrollToTop />
+}, [isHomePage]); 
 
   return (
     <>
+      <ScrollToTop />
+      <Header isHome={isHomePage}/>
       <main className='app-container'>
-        <Header isHome={isHomePage}/>
         <Routes>
           <Route path='/' element={ <HomePage/> } />
           <Route path='/search-results' element={ <SearchResultsPage/> } />
@@ -43,8 +42,8 @@ function App() {
           <Route path='/success' element={ <SuccessPage /> } />
           <Route path="*" element={<MissingPage />} />
         </Routes>
-        {!isHomePage && !isMissingPage && <Footer />}
       </main>
+      {!isHomePage && !isMissingPage && <Footer />}
     </>
   )
 }

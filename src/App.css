@@ -74,13 +74,27 @@
     line-height: 150%;
 }
 
-.tooltip-wrapper {
+.tooltip-wrapper.tooltip-wrapper, 
+.ticket-tooltip-wrapper, 
+.apply-tooltip-wrapper, 
+.reset-tooltip-wrapper,
+.passengers-info-tooltip-wrapper, 
+.payment-info-tooltip-wrapper {
     position: relative;
     display: inline-block;
 }
 
+.ticket-tooltip-wrapper {
+    width: 100%;
+}
+
 /* Стилизация самой подсказки */
-.tooltip-wrapper::after {
+.tooltip-wrapper::after,
+.ticket-tooltip-wrapper::after,
+.apply-tooltip-wrapper::after,
+.reset-tooltip-wrapper::after,
+.passengers-info-tooltip-wrapper::after,
+.payment-info-tooltip-wrapper::after {
     content: attr(data-tooltip);
     position: absolute;
     transform: translateX(-50%);
@@ -90,16 +104,16 @@
     visibility: hidden;
     transition: opacity 0.2s;
     pointer-events: none; /* Чтобы подсказка не мешала мыши */
+    z-index: 10;
 }
 
 /* Показ подсказки при наведении на контейнер */
-.tooltip-wrapper:hover::after {
+.tooltip-wrapper:hover::after,
+.ticket-tooltip-wrapper:hover::after,
+.apply-tooltip-wrapper:hover::after,
+.reset-tooltip-wrapper:hover::after {
     opacity: 1;
     visibility: visible;
-}
-
-.ticket-tooltip-wrapper {
-    width: 100%;
 }
 
 .ticket-tooltip-wrapper::after {
@@ -132,13 +146,8 @@
 }
 
 .passengers-info-tooltip-wrapper::after, .payment-info-tooltip-wrapper::after {
-    content: attr(data-tooltip); /* СВЯЗЫВАЕМ С JSX: выводит текст из атрибута data-tooltip */
-    position: absolute;          /* ОБЯЗАТЕЛЬНО: включает работу координат bottom и left */
-    display: none;      
-
     bottom: 100%;      
     left: 50%;          
-    transform: translateX(-50%); 
     margin-bottom: 8px; 
     width: 100%;
     border-radius: 10px;
@@ -146,6 +155,7 @@
     color: var(--primary-black-train-50);
     font-size: 0.875rem;
     background-color: var(--white); 
+    border: 1px solid var(--primary-black-train-50); /* Добавлен бордюр, чтобы плашка не сливалась */
     text-align: center;
 }
 
