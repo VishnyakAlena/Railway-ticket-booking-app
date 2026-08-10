@@ -44,10 +44,13 @@
     display: flex;
     width: 100%;
     gap: 77px;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.success-buttons-block, .qr-code {
-    width: calc(50% - 38px);
+.success-buttons-block {
+    padding: 0;
+    width: 50%;
 }
 
 .success-buttons-block button{

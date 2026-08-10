@@ -133,16 +133,25 @@
     color: var(--primary-black-train) !important;
 }
 
-.passengers-info-tooltip-wrapper::after {
+.passengers-info-tooltip-wrapper::after, .payment-info-tooltip-wrapper::after {
+    content: attr(data-tooltip); /* СВЯЗЫВАЕМ С JSX: выводит текст из атрибута data-tooltip */
+    position: absolute;          /* ОБЯЗАТЕЛЬНО: включает работу координат bottom и left */
+    display: none;      
+
     bottom: 100%;      
     left: 50%;          
     transform: translateX(-50%); 
     margin-bottom: 8px; 
-    width: 107%;
+    width: 100%;
     border-radius: 10px;
     white-space: nowrap; 
     color: var(--primary-black-train-50);
     font-size: 0.875rem;
     background-color: var(--white); 
     text-align: center;
+}
+
+.passengers-info-tooltip-wrapper[data-tooltip]:has(button:disabled):hover::after, 
+.payment-info-tooltip-wrapper[data-tooltip]:has(button:disabled):hover::after {
+    display: block;              /* Показываем плашку */
 }

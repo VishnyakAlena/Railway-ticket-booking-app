@@ -177,7 +177,7 @@ function PaymentPage () {
             <div className="buttons-info">Discounts, offers and price concessions will be applied later during payment</div>
 
             <div className="buttons-block">
-                <div className="tooltip-wrapper passengers-info-tooltip-wrapper" data-tooltip={isButtonDisabled ? 'Please fill payment info' : ''}>
+                <div className="tooltip-wrapper payment-info-tooltip-wrapper" data-tooltip={isButtonDisabled ? 'Please fill payment info' : undefined}>
                     <button className="main-button book-now-btn" onClick={handleBookNow} disabled={isButtonDisabled}>Book Now</button>
                 </div>
                     <button className="cancel-button book-now-btn" onClick={goToReview}>Cancel</button>

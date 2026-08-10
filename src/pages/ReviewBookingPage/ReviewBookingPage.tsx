@@ -231,7 +231,7 @@ function ReviewBookingPage(){
 
             <div className="buttons-block">
                 <div className="buttons-info">Discounts, offers and price concessions will be applied later during payment</div>
-                    <div className="tooltip-wrapper passengers-info-tooltip-wrapper" data-tooltip={(!isFormValid || !isFormFilled) ? 'Please fill paseengers info' : ''}>
+                    <div className="tooltip-wrapper passengers-info-tooltip-wrapper" data-tooltip={(!isFormValid || !isFormFilled) ? 'Please fill passengers info' : undefined}>
                         <button className="main-button book-now-btn" 
                             type="submit"
                             form="passengers-info-form"
