@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { store } from './store/index.ts'
 
 createRoot(document.getElementById('root')!).render(
-  <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Railway-ticket-booking-app'}>
+  <BrowserRouter basename="/Railway-ticket-booking-app">
     <Provider store={store}>
       <App />
     </Provider>

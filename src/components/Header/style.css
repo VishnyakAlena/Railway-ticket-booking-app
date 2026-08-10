@@ -9,6 +9,8 @@
     transform: scale(1.05)
 }
 
+
+
 .header-content {
     display: flex;
     justify-content: space-between;
@@ -17,6 +19,7 @@
     width: 100%;
     height: 115px;
     margin-inline: auto;
+    padding-inline: 64px;
 }
 
 .header-logo-block {
@@ -37,6 +40,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 1.25rem;
+    gap: 5px;
 }
 
 .white-bg {
@@ -88,6 +92,10 @@
 }
 
 @media (max-width: 768px) {
+    .header-content {
+        padding-inline: 20px;
+    }
+
     .navigation-block {
         display: none !important; /* Намертво скрываем десктопные ссылки */
     }
