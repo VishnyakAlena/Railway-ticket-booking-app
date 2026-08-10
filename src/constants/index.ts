@@ -16,7 +16,7 @@ export const TripAlias = {
 export const Tax = 500
 
 export const Trains: TrainType[] = [
-    {   id: 22426,
+    {   id: '22426',
         info: {
             departure: {
                 day: 'Nov 16',
@@ -56,7 +56,7 @@ export const Trains: TrainType[] = [
         ]
     },
     {
-        id: 22412,
+        id: '22412',
         info: {
             departure: {
                 day: 'Nov 16',
@@ -96,7 +96,7 @@ export const Trains: TrainType[] = [
         ]
     },
     {
-        id: 12572,
+        id: '12572',
         info: {
             departure: {
                 day: 'Nov 16',

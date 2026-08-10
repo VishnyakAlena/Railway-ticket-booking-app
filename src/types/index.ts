@@ -17,7 +17,7 @@ export type TrainInfo = {
 }
 
 export type TrainType = {
-    id: number,
+    id: string,
     name: string,
     frequency: string,
     info: TrainInfo, 
@@ -41,7 +41,7 @@ export type FoodType = {
 }
 
 export type TicketTrainType = {
-    id: number,
+    id: string,
     name: string,
     info: TrainInfo, 
     railcar: RailcarType

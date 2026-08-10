@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 import { useAppSelector } from "../../store/storeHooks"
 import { useNavigate } from "react-router-dom"
-import { Trains } from "../../constants"
 import Train from "../../components/SearchResultsPage/Train/Train"
 import BookingTicketsForm from "../../components/BookingTicketsForm/BookingTicketsForm"
 import './style.css'
@@ -9,7 +8,7 @@ import './style.css'
 
 function SearchResultsPage(){
     const navigate = useNavigate()
-    const {tickets} = useAppSelector(store => store.tickets)
+    const {tickets, trains} = useAppSelector(store => store.tickets)
 
 
     useEffect(() => {
@@ -85,7 +84,7 @@ function SearchResultsPage(){
             <h2 className="trains-title" ref={trainsSectionRef}> Available Trains</h2>
             <div className="trains">
                 {/* ИЗМЕНЕНИЕ: Модифицируем объекты поездов «на лету» перед рендером */}
-                {Trains.map(train => {
+                {trains.map(train => {
                     const dynamicTrain = {
                         ...train,
                         info: {
