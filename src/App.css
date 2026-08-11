@@ -107,15 +107,6 @@
     z-index: 10;
 }
 
-/* Показ подсказки при наведении на контейнер */
-.tooltip-wrapper:hover::after,
-.ticket-tooltip-wrapper:hover::after,
-.apply-tooltip-wrapper:hover::after,
-.reset-tooltip-wrapper:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
-
 .ticket-tooltip-wrapper::after {
     top: 100%;
     left: 50%;
@@ -162,8 +153,12 @@
     text-align: center;
 }
 
-.passengers-info-tooltip-wrapper[data-tooltip]:has(button:disabled):hover::after, 
-.payment-info-tooltip-wrapper[data-tooltip]:has(button:disabled):hover::after {
+.tooltip-wrapper[data-tooltip]:hover::after,
+.ticket-tooltip-wrapper[data-tooltip]:hover::after,
+.apply-tooltip-wrapper[data-tooltip]:hover::after,
+.reset-tooltip-wrapper[data-tooltip]:hover::after,
+.passengers-info-tooltip-wrapper[data-tooltip]:hover::after, 
+.payment-info-tooltip-wrapper[data-tooltip]:hover::after {
     opacity: 1;
-    visibility: visible;            /* Показываем плашку */
+    visibility: visible;            
 }
