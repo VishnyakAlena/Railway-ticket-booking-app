@@ -9,6 +9,8 @@
     margin-inline: auto;
     align-items: center;
     transition: margin 0.3s ease, transform 0.3s ease;
+    overflow: clip; 
+    height: auto;
 }
 
 
