@@ -7,7 +7,7 @@
     flex-direction: column;
     margin-inline:  auto;
     padding: 0 20px;  
-    overflow-x: hidden;
+    overflow: clip; 
 }
 
 .home-page, .search-results, .review-booking, .payment-page, .success-page, .missing-page {
