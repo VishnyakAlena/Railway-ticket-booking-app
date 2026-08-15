@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { FoodType, PassengerDetailsType, PriceType, TicketType, TrainType } from "../../types";
 import { PromoCodes, Tax, Trains } from "../../constants";
-import type { CardFormValues } from "../../validation/PaymentValidation";
 
 interface ITicketState {
     trains: TrainType[];
@@ -10,7 +9,6 @@ interface ITicketState {
     price: PriceType,
     passengersData: PassengerDetailsType[],
     paymentMethod: number,
-    cardDetails: CardFormValues,
     currentFoodList: FoodType[]
 }
 
@@ -41,12 +39,6 @@ const initialState:ITicketState = {
     passengersData: [],
     currentFoodList: [],
     paymentMethod: 1,
-    cardDetails: {
-        cardNumber: '',
-        expirationDate: '',
-        cardholder: '',
-        cvc: ''
-    }
 }
 
 const calculatePrice = (tickets: TicketType): PriceType => {
@@ -142,9 +134,6 @@ const ticketSlice = createSlice({
         setPassengersData: (state, action: PayloadAction<PassengerDetailsType[]>) => {
             state.passengersData = action.payload;
         },
-        setCardDetails: (state, action: PayloadAction<CardFormValues>) => {
-            state.cardDetails = action.payload; // cardDetails инициализируйте в initialState
-        },
         setPaymentMethod: (state, action: PayloadAction<number>) => {
             state.paymentMethod = action.payload;
         },
@@ -169,5 +158,5 @@ const ticketSlice = createSlice({
     }
 })
 
-export const {setTickets, addToTickets, addTrainToTicket, setPassengersData, setCardDetails, setPaymentMethod, clearCurrentBooking} = ticketSlice.actions
+export const {setTickets, addToTickets, addTrainToTicket, setPassengersData, setPaymentMethod, clearCurrentBooking} = ticketSlice.actions
 export default ticketSlice.reducer
